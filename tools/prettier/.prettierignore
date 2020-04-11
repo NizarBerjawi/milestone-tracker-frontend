@@ -1,6 +1,6 @@
-.cache/
-.docker
-.gitignore
-coverage
-dist
-./package-lock.json
+../../.cache
+../../.docker
+../../.gitignore
+../../coverage
+../../dist
+../../package-lock.json
