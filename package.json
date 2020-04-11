@@ -1,0 +1,11 @@
+{
+  "name": "project-planner-frontend",
+  "version": "1.0.0",
+  "description": "Front-end to the project planner project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nizar El Berjawi",
+  "license": "ISC"
+}
