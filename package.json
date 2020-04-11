@@ -6,6 +6,8 @@
   "scripts": {
     "build": "webpack --config tools/webpack/webpack.config.js --color -p --progress --hide-modules --display-optimization-bailout",
     "hot": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=tools/webpack/webpack.config.js",
+    "prettier": "prettier \"./**/*.{ts,tsx,js,jsx,json,css,md,markdown,html,yaml,yml}\" --config tools/prettier/prettier.config.js",
+    "prettier:write": "prettier \"./**/*.{ts,tsx,js,jsx,json,css,md,markdown,html,yaml,yml}\" --config tools/prettier/prettier.config.js --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nizar El Berjawi",
