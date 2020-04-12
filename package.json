@@ -5,7 +5,9 @@
     "main": "index.js",
     "scripts": {
         "build": "webpack --config tools/webpack/webpack.config.js --color -p --progress --hide-modules --display-optimization-bailout",
-        "hot": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=tools/webpack/webpack.config.js",
+        "start": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=tools/webpack/webpack.config.js",
+        "lint": "npm run lint:js -- --fix",
+        "lint:js": "eslint --ignore-path tools/eslint/.eslintignore --config tools/eslint/eslintrc.js \"src/**/*.{js,jsx}\"",
         "prettier": "prettier \"./**/*.{ts,tsx,js,jsx,json,css,md,markdown,html,yaml,yml}\" --config tools/prettier/prettier.config.js --ignore-path tools/prettier/.prettierignore",
         "prettier:write": "prettier \"./**/*.{ts,tsx,js,jsx,json,css,md,markdown,html,yaml,yml}\" --config tools/prettier/prettier.config.js --ignore-path tools/prettier/.prettierignore --write",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,6 +24,8 @@
         "clean-webpack-plugin": "^3.0.0",
         "cross-env": "^7.0.2",
         "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.10.1",
+        "eslint-plugin-react": "^7.19.0",
         "file-loader": "^6.0.0",
         "html-webpack-plugin": "^4.2.0",
         "husky": "^4.2.5",
