@@ -3,7 +3,7 @@ module.exports = {
   jsxSingleQuote: true,
   overrides: [
     {
-      files: ['*.json', '*.yaml', '*.yml', '*.md', '*.markdown'],
+      files: ['*.html', '*.json', '*.yaml', '*.yml', '*.md', '*.markdown'],
       options: {
         singleQuote: false,
         tabWidth: 4,
