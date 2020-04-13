@@ -5,7 +5,7 @@ export interface AppProps {
   name: string;
 }
 
-const App = ({ name }: AppProps) =>  <h1>Hello {name}!</h1>;
+const App = ({ name }: AppProps) => <h1>Hello {name}!</h1>;
 
 declare let module: object;
 

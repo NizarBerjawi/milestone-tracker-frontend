@@ -41,7 +41,7 @@ module.exports = merge(commonConfig, {
     contentBase: path.join(__dirname, './dist'),
     compress: true,
     hot: true, // enable HMR on the server
-    port: 9000
+    port: 9000,
   },
 
   plugins: [
@@ -49,5 +49,5 @@ module.exports = merge(commonConfig, {
     new webpack.HotModuleReplacementPlugin(),
     // Makes it easier to see which dependencies are being patched
     new webpack.NamedModulesPlugin(),
-  ]
+  ],
 });
