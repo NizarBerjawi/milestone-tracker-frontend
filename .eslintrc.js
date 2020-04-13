@@ -7,6 +7,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'eslint-config-prettier',
   ],
@@ -23,14 +25,6 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: {
-    indent: [2, 2, { SwitchCase: 1 }],
-    'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
-    semi: ['error', 'always'],
-    // note you must disable the base rule as it can report incorrect errors
-    'no-unused-vars': 'off',
-  },
   settings: {
     react: {
       version: 'detect',
