@@ -19,8 +19,6 @@ module.exports = merge(commonConfig, {
 
   // Options related to how webpack emits results
   output: {
-    // The target directory for all output files must be an absolute path
-    // path: path.resolve(__dirname, 'public/dist'),
     // The filename template for entry chunks
     filename: '[name].js',
   },
@@ -47,12 +45,6 @@ module.exports = merge(commonConfig, {
   },
 
   plugins: [
-    // Expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
-    // inside your code for any environment checks
-    // new webpack.EnvironmentPlugin({
-    //   NODE_ENV: 'development',
-    // }),
-
     // Allows modules to be updated at runtime without the need for a full refresh
     new webpack.HotModuleReplacementPlugin(),
     // Makes it easier to see which dependencies are being patched
