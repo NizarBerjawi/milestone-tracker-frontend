@@ -1,0 +1,5 @@
+.docker
+.gitignore
+coverage
+dist
+package-lock.json
