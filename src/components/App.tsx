@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
-import Box from '@material-ui/core/Box';
 import { ThemeProvider } from '@material-ui/core';
 import theme from './theme';
+import { Router } from './router';
 
-export interface AppProps {
-  name: string;
-}
-
-const App = ({ name }: AppProps): React.ReactElement => (
-  <ThemeProvider theme={theme}>
-    <Box component='h1' color={theme.palette.primary}>Hello {name}!</Box>
-  </ThemeProvider>
+const App = (): React.ReactElement => (
+  <React.Fragment>
+    <ThemeProvider theme={theme}>
+      <Router />
+    </ThemeProvider>
+  </React.Fragment>
 );
 
 declare let module: object;
