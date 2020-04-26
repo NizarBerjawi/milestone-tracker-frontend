@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
-import { ThemeProvider } from '@material-ui/core';
-import theme from './theme';
+import { ThemeProvider, Theme } from '@material-ui/core';
 import { Router } from './router';
 
-const App = (): React.ReactElement => (
+interface AppProps {
+  theme?: Theme;
+};
+
+const App = ({ theme }: AppProps): React.ReactElement => (
   <React.Fragment>
     <ThemeProvider theme={theme}>
       <Router />
