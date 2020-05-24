@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 // shared config (dev and prod)
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const env = require('dotenv').config().parsed;
 
 module.exports = {
   // Add '.ts' and '.tsx' as resolvable extensions.
@@ -61,6 +66,10 @@ module.exports = {
     // All files inside webpack's output.path directory will be removed once, but the
     // directory itself will not be
     new CleanWebpackPlugin(),
+
+    // The EnvironmentPlugin accepts either an array of keys or an object
+    // mapping its keys to their default values.
+    new webpack.EnvironmentPlugin(env),
   ],
   performance: {
     hints: false,

@@ -1,7 +1,7 @@
-import Login from '../pages/login';
-import Home from '../pages/home';
-import Register from '../pages/register';
-import { RouteInterface } from '../components/router/PublicRoute';
+import Login from '../pages/Login';
+import Home from '../pages/Home';
+import Register from '../pages/Register';
+import { RouteInterface } from '../components/Router/PublicRoute';
 
 const routes: Array<RouteInterface> = [
   {
@@ -14,7 +14,7 @@ const routes: Array<RouteInterface> = [
     path: '/register',
     exact: true,
     component: Register,
-    auth: true,
+    auth: false,
   },
   {
     path: '/',

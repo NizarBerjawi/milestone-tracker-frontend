@@ -1,10 +1,18 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { purple, green } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
-    secondary: green,
+    // primary: blue
+  },
+  typography: {
+    h1: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 300,
+      fontSize: '4rem',
+      lineHeight: 1.167,
+      letterSpacing: '-0.01562em',
+    },
   },
 });
 
