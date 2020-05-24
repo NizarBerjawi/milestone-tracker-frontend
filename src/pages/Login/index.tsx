@@ -20,7 +20,7 @@ const useStyles = makeStyles(() =>
 type Credentials = {
   email: string;
   password: string;
-}
+};
 
 const Login: React.FC = (): React.ReactElement => {
   const [credentials, setCredentials] = useState<Credentials>({
@@ -39,8 +39,6 @@ const Login: React.FC = (): React.ReactElement => {
 
   return (
     <Box component='div' className={classes.page}>
-      <TopMenu title={process.env.APP_NAME} />
-
       <Container maxWidth='sm' className={classes.container}>
         <Box
           display='flex'

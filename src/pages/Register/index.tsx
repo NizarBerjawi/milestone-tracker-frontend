@@ -4,6 +4,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Box, Container, Paper, Typography } from '@material-ui/core';
 import { TopMenu } from '../../components/TopMenu';
 import Form from './Form';
+import { authService } from '../../services';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -17,15 +18,17 @@ const useStyles = makeStyles(() =>
 );
 
 type Credentials = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   passwordConfirmation: string;
-}
+};
 
 const Register: React.FC = (): React.ReactElement => {
   const [credentials, setCredentials] = useState<Credentials>({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     passwordConfirmation: '',
@@ -37,13 +40,11 @@ const Register: React.FC = (): React.ReactElement => {
   };
 
   const handleSubmit = (): void => {
-    return;
+    authService.register(credentials).then((res) => console.log(res));
   };
 
   return (
     <Box component='div' className={classes.page}>
-      <TopMenu title={process.env.APP_NAME} />
-
       <Container maxWidth='sm' className={classes.container}>
         <Box
           display='flex'

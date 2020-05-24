@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      position: 'absolute',
       width: '100%',
       top: 0,
       left: 0,
+      marginBottom: theme.spacing(2)
     },
     action: {
       margin: theme.spacing(0.5),
