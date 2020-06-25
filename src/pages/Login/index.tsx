@@ -1,10 +1,14 @@
 import * as React from 'react';
+import { useState, FormEvent } from 'react';
+import { Redirect } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Box, Container, Typography } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import { TopMenu } from '../../components/TopMenu';
+import { Box, Container, Paper, Typography } from '@material-ui/core';
+
 import Form from './Form';
-import { useState } from 'react';
+import { LoginCredentials } from '../../common/types';
+import { useAuth } from '../../context/AuthContext';
+import { authService } from '../../services';
+import { LoginResponse } from '../../services/authService';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -17,25 +21,34 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type Credentials = {
-  email: string;
-  password: string;
-};
-
 const Login: React.FC = (): React.ReactElement => {
-  const [credentials, setCredentials] = useState<Credentials>({
+  const classes = useStyles();
+  const { accessToken, setAccessToken } = useAuth();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [credentials, setCredentials] = useState<LoginCredentials>({
     email: '',
     password: '',
   });
-  const classes = useStyles();
 
   const handleChange = (name: string, value: string): void => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (): void => {
-    return;
+  const handleSubmit = (e: FormEvent): void => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    authService.login(credentials)
+      .then((res: LoginResponse) => {
+        setAccessToken(res.accessToken);
+        setLoading(false)
+      });
   };
+
+  if (accessToken) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Box component='div' className={classes.page}>
@@ -45,7 +58,7 @@ const Login: React.FC = (): React.ReactElement => {
           alignItems='center'
           justifyContent='center'
           height='100%'
-        >
+          >
           <Paper elevation={2}>
             <Box margin={2}>
               <Typography variant='h3'>Login</Typography>
@@ -53,7 +66,8 @@ const Login: React.FC = (): React.ReactElement => {
                 {...credentials}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
-              />
+                submitting={loading}
+                />
             </Box>
           </Paper>
         </Box>

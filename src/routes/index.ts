@@ -1,9 +1,16 @@
 import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Register from '../pages/Register';
-import { RouteInterface } from '../components/Router/PublicRoute';
+import { RouteInterface } from '../common/types';
+import Dashboard from '../pages/Dashboard';
 
 const routes: Array<RouteInterface> = [
+  {
+    path: '/',
+    exact: true,
+    component: Home,
+    auth: false,
+  },
   {
     path: '/login',
     exact: true,
@@ -17,10 +24,10 @@ const routes: Array<RouteInterface> = [
     auth: false,
   },
   {
-    path: '/',
+    path: '/dashboard',
     exact: true,
-    component: Home,
-    auth: false,
+    component: Dashboard,
+    auth: true,
   },
 ];
 

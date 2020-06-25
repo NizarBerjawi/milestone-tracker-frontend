@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import { TextField } from '@material-ui/core';
-import { ButtonProps } from '@material-ui/core/Button';
+import { ButtonProps } from '../../components/Button';
 import FormActions from '../../components/FormActions';
 
 interface FormProps {
   email: string;
   password: string;
   handleChange: (name: string, value: string) => void;
-  handleSubmit: () => void;
+  handleSubmit: (e: FormEvent) => void;
+  submitting: boolean;
 }
 
 const Form = (props: FormProps): React.ReactElement => {
   const history = useHistory();
-  const { email, password, handleChange, handleSubmit } = props;
+  const { email, password, submitting, handleChange, handleSubmit } = props;
 
   const actions: ButtonProps[] = [
     {
@@ -27,7 +28,9 @@ const Form = (props: FormProps): React.ReactElement => {
       variant: 'contained',
       children: 'Login',
       color: 'primary',
-      onClick: handleSubmit,
+      disabled: submitting,
+      loading: submitting,
+      type: 'submit',
     },
   ];
 

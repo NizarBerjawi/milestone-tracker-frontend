@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import { TextField } from '@material-ui/core';
-import { ButtonProps } from '@material-ui/core/Button';
 import FormActions from '../../components/FormActions';
+import { ButtonProps } from '../../components/Button';
 
 interface FormProps {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  passwordConfirmation: string;
+  passwordConfirm: string;
   handleChange: (name: string, value: string) => void;
-  handleSubmit: () => void;
+  handleSubmit: (e: FormEvent) => void;
+  loading: boolean;
 }
 
 const Form = (props: FormProps): React.ReactElement => {
@@ -22,9 +23,10 @@ const Form = (props: FormProps): React.ReactElement => {
     lastName,
     email,
     password,
-    passwordConfirmation,
+    passwordConfirm,
     handleChange,
     handleSubmit,
+    loading,
   } = props;
 
   const actions: ButtonProps[] = [
@@ -38,7 +40,9 @@ const Form = (props: FormProps): React.ReactElement => {
       variant: 'contained',
       children: 'Login',
       color: 'primary',
-      onClick: handleSubmit,
+      disabled: loading,
+      loading: loading,
+      type: 'submit',
     },
   ];
 
@@ -97,8 +101,8 @@ const Form = (props: FormProps): React.ReactElement => {
       <TextField
         type='password'
         label='Confirm Password'
-        name='password_confirm'
-        value={passwordConfirmation}
+        name='passwordConfirm'
+        value={passwordConfirm}
         variant='outlined'
         margin='normal'
         fullWidth

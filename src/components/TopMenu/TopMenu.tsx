@@ -9,6 +9,8 @@ import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
+import { useAuth } from '../../context/AuthContext';
+
 interface TopMenuProps {
   title?: string;
 }
@@ -20,16 +22,17 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       top: 0,
       left: 0,
-      marginBottom: theme.spacing(2)
+      marginBottom: theme.spacing(0),
+      position: 'absolute',
     },
     action: {
       margin: theme.spacing(0.5),
       fontWeight: theme.typography.fontWeightBold,
     },
-    signUp: {
+    primary: {
       color: theme.palette.text.primary,
     },
-    login: {
+    secondary: {
       color: theme.palette.text.secondary,
     },
     title: {
@@ -50,13 +53,13 @@ const TopMenu: React.FC<TopMenuProps> = ({ title }: TopMenuProps) => {
     {
       variant: 'outlined',
       children: 'Login',
-      className: classes.login,
+      className: classes.secondary,
       onClick: (): void => history.push('/login'),
     },
     {
       variant: 'contained',
       children: 'Sign Up',
-      className: classes.signUp,
+      className: classes.primary,
       onClick: (): void => history.push('/register'),
     },
   ];

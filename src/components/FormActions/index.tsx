@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Button, { ButtonProps } from '@material-ui/core/Button';
+import Button, { ButtonProps } from '../Button';
 import classNames from 'classnames';
 
 interface FormActionsProps {

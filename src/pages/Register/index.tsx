@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Box, Container, Paper, Typography } from '@material-ui/core';
-import { TopMenu } from '../../components/TopMenu';
 import Form from './Form';
 import { authService } from '../../services';
+import { RegisterCredentials } from '../../common/types';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -17,21 +17,14 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type Credentials = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-};
-
 const Register: React.FC = (): React.ReactElement => {
-  const [credentials, setCredentials] = useState<Credentials>({
+  const [loading, setLoading] = useState<boolean>(false);
+  const [credentials, setCredentials] = useState<RegisterCredentials>({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    passwordConfirmation: '',
+    passwordConfirm: '',
   });
   const classes = useStyles();
 
@@ -39,8 +32,14 @@ const Register: React.FC = (): React.ReactElement => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (): void => {
-    authService.register(credentials).then((res) => console.log(res));
+  const handleSubmit = (e: FormEvent): void => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    authService
+      .register(credentials)
+      .then(() => setLoading(false));
   };
 
   return (
@@ -59,6 +58,7 @@ const Register: React.FC = (): React.ReactElement => {
                 {...credentials}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                loading={loading}
               />
             </Box>
           </Paper>

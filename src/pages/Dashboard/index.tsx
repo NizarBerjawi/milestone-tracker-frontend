@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Box, Container, Typography } from '@material-ui/core';
 
 import { TopMenu } from '../../components/TopMenu';
-import { useAuth } from '../../context/AuthContext';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -17,18 +15,11 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const Home: React.FC = (): React.ReactElement => {
-  const { accessToken } = useAuth();
+const Dashboard: React.FC = (): React.ReactElement => {
   const classes = useStyles();
-
-  if (accessToken) {
-    return <Redirect to='/dashboard' />;
-  }
 
   return (
     <Box component='div' className={classes.page}>
-      <TopMenu title={process.env.APP_NAME} />
-
       <Container maxWidth='sm' className={classes.container}>
         <Box
           display='flex'
@@ -36,11 +27,11 @@ const Home: React.FC = (): React.ReactElement => {
           justifyContent='center'
           height='100%'
         >
-          <Typography variant='h1'>{process.env.APP_NAME}</Typography>
+          <Typography variant='h1'>Dashboard</Typography>
         </Box>
       </Container>
     </Box>
   );
 };
 
-export default Home;
+export default Dashboard;
