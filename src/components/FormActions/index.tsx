@@ -1,21 +1,12 @@
 import * as React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button, { ButtonProps } from '../Button';
 import classNames from 'classnames';
+import { useStyles } from './styles';
 
 interface FormActionsProps {
   actions: ButtonProps[];
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    action: {
-      margin: theme.spacing(0.5),
-      fontWeight: theme.typography.fontWeightBold,
-    },
-  })
-);
 
 const FormActions = ({ actions }: FormActionsProps): React.ReactElement => {
   const classes = useStyles();

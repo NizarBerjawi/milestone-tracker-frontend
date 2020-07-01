@@ -4,12 +4,11 @@ import { useContext } from 'react';
 type AuthContextType = {
   accessToken: string;
   setAccessToken: (token: string) => void;
-}
+};
 
 export const AuthContext = React.createContext<AuthContextType>({
   accessToken: '',
-  setAccessToken: () => ''
+  setAccessToken: () => '',
 });
 
 export const useAuth = (): AuthContextType => useContext(AuthContext);
-

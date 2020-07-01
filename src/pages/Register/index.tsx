@@ -37,9 +37,7 @@ const Register: React.FC = (): React.ReactElement => {
 
     setLoading(true);
 
-    authService
-      .register(credentials)
-      .then(() => setLoading(false));
+    authService.register(credentials).then(() => setLoading(false));
   };
 
   return (

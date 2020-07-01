@@ -4,6 +4,7 @@ import { LoginCredentials, RegisterCredentials } from '../common/types';
 import { Data } from '../utils/Transformer';
 
 export type LoginResponse = Data & { accessToken: string };
+export type LogoutResponse = Data & { message: string };
 
 const register = (credentials: RegisterCredentials): PromiseLike<object> =>
   new Promise((resolve) =>
@@ -30,4 +31,15 @@ const login = (credentials: LoginCredentials): PromiseLike<object> =>
     })
   );
 
-export { login, register };
+const logout = (): PromiseLike<object> =>
+  new Promise((resolve) =>
+    Http.post('auth/logout', Transformer.send({})).then((res) => {
+      const data = Transformer.fetch(res.data) as LogoutResponse;
+
+      localStorage.removeItem('access_token');
+
+      return resolve(data);
+    })
+  );
+
+export { login, logout, register };

@@ -39,11 +39,10 @@ const Login: React.FC = (): React.ReactElement => {
 
     setLoading(true);
 
-    authService.login(credentials)
-      .then((res: LoginResponse) => {
-        setAccessToken(res.accessToken);
-        setLoading(false)
-      });
+    authService.login(credentials).then((res: LoginResponse) => {
+      setAccessToken(res.accessToken);
+      setLoading(false);
+    });
   };
 
   if (accessToken) {
@@ -58,7 +57,7 @@ const Login: React.FC = (): React.ReactElement => {
           alignItems='center'
           justifyContent='center'
           height='100%'
-          >
+        >
           <Paper elevation={2}>
             <Box margin={2}>
               <Typography variant='h3'>Login</Typography>
@@ -67,7 +66,7 @@ const Login: React.FC = (): React.ReactElement => {
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 submitting={loading}
-                />
+              />
             </Box>
           </Paper>
         </Box>

@@ -1,33 +1,12 @@
 import * as React from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import MuiButton, {
   ButtonProps as MuiButtonProps,
 } from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+import { Box, CircularProgress } from '@material-ui/core';
+import { useStyles } from './styles';
 export interface ButtonProps extends MuiButtonProps {
   loading?: boolean;
 }
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  wrapper: {
-    margin: theme.spacing(1),
-    position: 'relative',
-  },
-  buttonProgress: {
-    color: theme.palette.primary.main,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -theme.spacing(1.5),
-    marginLeft: -theme.spacing(1.5),
-  },
-}));
 
 const Button: React.FC<ButtonProps> = (
   props: React.PropsWithChildren<ButtonProps>
