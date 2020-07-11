@@ -2,31 +2,28 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ChangeEvent, FormEvent } from 'react';
 import { TextField } from '@material-ui/core';
-import FormActions from '../../components/FormActions';
 import { ButtonProps } from '../../components/Button';
+import FormActions from '../../components/FormActions';
+import Errors from '../../utils/Errors';
 
 interface FormProps {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
-  passwordConfirm: string;
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
-  loading: boolean;
+  submitting: boolean;
+  errors: Errors;
 }
 
 const Form = (props: FormProps): React.ReactElement => {
   const history = useHistory();
   const {
-    firstName,
-    lastName,
+    errors,
     email,
     password,
-    passwordConfirm,
+    submitting,
     handleChange,
     handleSubmit,
-    loading,
   } = props;
 
   const actions: ButtonProps[] = [
@@ -40,8 +37,8 @@ const Form = (props: FormProps): React.ReactElement => {
       variant: 'contained',
       children: 'Login',
       color: 'primary',
-      disabled: loading,
-      loading: loading,
+      disabled: submitting,
+      loading: submitting,
       type: 'submit',
     },
   ];
@@ -55,28 +52,6 @@ const Form = (props: FormProps): React.ReactElement => {
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit}>
       <TextField
-        type='text'
-        label='First Name'
-        name='firstName'
-        value={firstName}
-        variant='outlined'
-        margin='normal'
-        fullWidth
-        onChange={onChange}
-      />
-
-      <TextField
-        type='text'
-        label='Last Name'
-        name='lastName'
-        value={lastName}
-        variant='outlined'
-        margin='normal'
-        fullWidth
-        onChange={onChange}
-      />
-
-      <TextField
         type='email'
         label='Email'
         name='email'
@@ -85,6 +60,8 @@ const Form = (props: FormProps): React.ReactElement => {
         margin='normal'
         fullWidth
         onChange={onChange}
+        error={errors.has('email')}
+        helperText={errors.first('email')}
       />
 
       <TextField
@@ -96,17 +73,8 @@ const Form = (props: FormProps): React.ReactElement => {
         margin='normal'
         fullWidth
         onChange={onChange}
-      />
-
-      <TextField
-        type='password'
-        label='Confirm Password'
-        name='passwordConfirm'
-        value={passwordConfirm}
-        variant='outlined'
-        margin='normal'
-        fullWidth
-        onChange={onChange}
+        error={errors.has('password')}
+        helperText={errors.first('password')}
       />
 
       <FormActions actions={actions} />

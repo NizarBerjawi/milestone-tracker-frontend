@@ -17,6 +17,13 @@ export interface RouteComponentInterface extends RouteComponentProps {
 /**
  *
  */
+export interface ValidationErrors {
+  [key: string]: string[];
+}
+
+/**
+ *
+ */
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -28,5 +35,5 @@ export interface LoginCredentials {
 export interface RegisterCredentials extends LoginCredentials {
   firstName: string;
   lastName: string;
-  passwordConfirm: string;
+  passwordConfirmation: string;
 }

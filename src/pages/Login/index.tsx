@@ -1,30 +1,22 @@
 import * as React from 'react';
 import { useState, FormEvent } from 'react';
 import { Redirect } from 'react-router-dom';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Box, Container, Paper, Typography } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 
-import Form from './Form';
+import Form from './form';
 import { LoginCredentials } from '../../common/types';
 import { useAuth } from '../../context/AuthContext';
-import { authService } from '../../services';
-import { LoginResponse } from '../../services/authService';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    page: {
-      height: '100vh',
-    },
-    container: {
-      height: '100%',
-    },
-  })
-);
+import { login, LoginResponse } from '../../services/authService';
+import Errors from '../../utils/Errors';
+import { useStyles } from './styles';
 
 const Login: React.FC = (): React.ReactElement => {
   const classes = useStyles();
   const { accessToken, setAccessToken } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<Errors>(new Errors());
   const [credentials, setCredentials] = useState<LoginCredentials>({
     email: '',
     password: '',
@@ -32,6 +24,8 @@ const Login: React.FC = (): React.ReactElement => {
 
   const handleChange = (name: string, value: string): void => {
     setCredentials({ ...credentials, [name]: value });
+
+    errors.clear(name);
   };
 
   const handleSubmit = (e: FormEvent): void => {
@@ -39,10 +33,16 @@ const Login: React.FC = (): React.ReactElement => {
 
     setLoading(true);
 
-    authService.login(credentials).then((res: LoginResponse) => {
-      setAccessToken(res.accessToken);
-      setLoading(false);
-    });
+    login(credentials)
+      .then((res: LoginResponse) => {
+        setAccessToken(res.accessToken);
+        setLoading(false);
+      })
+      .catch((err) => {
+        enqueueSnackbar(err.message, { variant: 'error' });
+        setErrors(new Errors(err.errors));
+        setLoading(false);
+      });
   };
 
   if (accessToken) {
@@ -66,6 +66,7 @@ const Login: React.FC = (): React.ReactElement => {
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 submitting={loading}
+                errors={errors}
               />
             </Box>
           </Paper>

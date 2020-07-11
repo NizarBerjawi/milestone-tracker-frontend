@@ -1,35 +1,34 @@
 import * as React from 'react';
 import { useState, FormEvent } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
 import { Box, Container, Paper, Typography } from '@material-ui/core';
-import Form from './Form';
-import { authService } from '../../services';
-import { RegisterCredentials } from '../../common/types';
+import { useSnackbar } from 'notistack';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    page: {
-      height: '100vh',
-    },
-    container: {
-      height: '100%',
-    },
-  })
-);
+import Form from './form';
+import { register, RegisterResponse } from '../../services/authService';
+import { useAuth } from '../../context/AuthContext';
+import { RegisterCredentials } from '../../common/types';
+import { useStyles } from './styles';
+import Errors from '../../utils/Errors';
 
 const Register: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<Errors>(new Errors());
   const [credentials, setCredentials] = useState<RegisterCredentials>({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    passwordConfirm: '',
+    passwordConfirmation: '',
   });
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
+  const { accessToken } = useAuth();
 
   const handleChange = (name: string, value: string): void => {
     setCredentials({ ...credentials, [name]: value });
+
+    errors.clear(name);
   };
 
   const handleSubmit = (e: FormEvent): void => {
@@ -37,8 +36,21 @@ const Register: React.FC = (): React.ReactElement => {
 
     setLoading(true);
 
-    authService.register(credentials).then(() => setLoading(false));
+    register(credentials)
+      .then((res: RegisterResponse) => {
+        enqueueSnackbar(res.message, { variant: 'success' });
+        setLoading(false);
+      })
+      .catch((err) => {
+        enqueueSnackbar(err.message, { variant: 'error' });
+        setErrors(new Errors(err.errors));
+        setLoading(false);
+      });
   };
+
+  if (accessToken) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Box component='div' className={classes.page}>
@@ -57,6 +69,7 @@ const Register: React.FC = (): React.ReactElement => {
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 loading={loading}
+                errors={errors}
               />
             </Box>
           </Paper>

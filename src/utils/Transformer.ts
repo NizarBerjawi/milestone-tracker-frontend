@@ -1,9 +1,11 @@
-import * as Humps from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 export type Data = object[] | object;
 
-const send = (data: Data): Data => Humps.decamelizeKeys(data);
+const send = (data: Data): Data => decamelizeKeys(data);
 
-const fetch = (data: Data): Data => Humps.camelizeKeys(data);
+const fetch = (data: Data): Data => camelizeKeys(data);
 
-export { fetch, send };
+const errors = (data: Data): Data => camelizeKeys(data);
+
+export { errors, fetch, send };

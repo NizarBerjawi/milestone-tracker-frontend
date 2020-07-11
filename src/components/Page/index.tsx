@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom';
 import TopMenu from '../TopMenu';
 import Sidebar from '../Sidebar';
 import { useStyles } from './styles';
+import { logout } from '../../services/authService';
 import { useAuth } from '../../context/AuthContext';
-import { authService } from '../../services';
 
 interface PageProps {
   hideSidebar?: boolean;
@@ -15,10 +15,10 @@ interface PageProps {
 const Page: React.FC<PageProps> = (
   props: React.PropsWithChildren<PageProps>
 ) => {
-  const classes = useStyles();
-  const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const [loggingOut, setloggingOut] = React.useState(false);
+  const classes = useStyles();
+  const history = useHistory();
   const { setAccessToken } = useAuth();
 
   const onSidebarOpen = (): void => {
@@ -32,7 +32,7 @@ const Page: React.FC<PageProps> = (
   const onLogoutClick = (): void => {
     setloggingOut(true);
 
-    authService.logout().then(() => {
+    logout().then(() => {
       setAccessToken('');
       setloggingOut(false);
     });
