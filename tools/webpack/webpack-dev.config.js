@@ -39,6 +39,7 @@ module.exports = merge(commonConfig, {
     },
   },
   devServer: {
+    historyApiFallback: true,
     contentBase: path.join(__dirname, './dist'),
     compress: true,
     hot: true, // enable HMR on the server

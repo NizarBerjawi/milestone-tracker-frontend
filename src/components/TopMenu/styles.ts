@@ -25,7 +25,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'none',
     },
     action: {
-      margin: theme.spacing(0.5),
       fontWeight: theme.typography.fontWeightBold,
     },
     primary: {

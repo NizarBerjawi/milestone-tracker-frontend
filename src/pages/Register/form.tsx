@@ -4,16 +4,18 @@ import { ChangeEvent, FormEvent } from 'react';
 import { TextField } from '@material-ui/core';
 import FormActions from '../../components/FormActions';
 import { ButtonProps } from '../../components/Button';
+import Errors from '../../utils/Errors';
 
 interface FormProps {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  passwordConfirm: string;
+  passwordConfirmation: string;
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
   loading: boolean;
+  errors: Errors;
 }
 
 const Form = (props: FormProps): React.ReactElement => {
@@ -23,10 +25,11 @@ const Form = (props: FormProps): React.ReactElement => {
     lastName,
     email,
     password,
-    passwordConfirm,
+    passwordConfirmation,
     handleChange,
     handleSubmit,
     loading,
+    errors,
   } = props;
 
   const actions: ButtonProps[] = [
@@ -38,7 +41,7 @@ const Form = (props: FormProps): React.ReactElement => {
     },
     {
       variant: 'contained',
-      children: 'Login',
+      children: 'Register',
       color: 'primary',
       disabled: loading,
       loading: loading,
@@ -63,6 +66,8 @@ const Form = (props: FormProps): React.ReactElement => {
         margin='normal'
         fullWidth
         onChange={onChange}
+        error={errors.has('firstName')}
+        helperText={errors.first('firstName')}
       />
 
       <TextField
@@ -74,6 +79,8 @@ const Form = (props: FormProps): React.ReactElement => {
         margin='normal'
         fullWidth
         onChange={onChange}
+        error={errors.has('lastName')}
+        helperText={errors.first('lastName')}
       />
 
       <TextField
@@ -85,6 +92,8 @@ const Form = (props: FormProps): React.ReactElement => {
         margin='normal'
         fullWidth
         onChange={onChange}
+        error={errors.has('email')}
+        helperText={errors.first('email')}
       />
 
       <TextField
@@ -96,17 +105,21 @@ const Form = (props: FormProps): React.ReactElement => {
         margin='normal'
         fullWidth
         onChange={onChange}
+        error={errors.has('password')}
+        helperText={errors.first('password')}
       />
 
       <TextField
         type='password'
         label='Confirm Password'
-        name='passwordConfirm'
-        value={passwordConfirm}
+        name='passwordConfirmation'
+        value={passwordConfirmation}
         variant='outlined'
         margin='normal'
         fullWidth
         onChange={onChange}
+        error={errors.has('passwordConfirmation')}
+        helperText={errors.first('passwordConfirmation')}
       />
 
       <FormActions actions={actions} />
