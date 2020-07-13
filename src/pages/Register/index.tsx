@@ -4,12 +4,12 @@ import { Redirect } from 'react-router-dom';
 import { Box, Container, Paper, Typography } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
-import Form from './form';
-import { register, RegisterResponse } from '../../services/authService';
-import { useAuth } from '../../context/AuthContext';
 import { RegisterCredentials } from '../../common/types';
-import { useStyles } from './styles';
+import { useAuth } from '../../context/AuthContext';
+import { register, RegisterResponse } from '../../services/authService';
 import Errors from '../../utils/Errors';
+import Form from './form';
+import { useStyles } from './styles';
 
 const Register: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,9 +21,10 @@ const Register: React.FC = (): React.ReactElement => {
     password: '',
     passwordConfirmation: '',
   });
-  const classes = useStyles();
+
   const { enqueueSnackbar } = useSnackbar();
   const { accessToken } = useAuth();
+  const classes = useStyles();
 
   const handleChange = (name: string, value: string): void => {
     setCredentials({ ...credentials, [name]: value });
@@ -53,17 +54,22 @@ const Register: React.FC = (): React.ReactElement => {
   }
 
   return (
-    <Box component='div' className={classes.page}>
-      <Container maxWidth='sm' className={classes.container}>
+    <Container maxWidth='sm' className={classes.container}>
+      <Box className={classes.page}>
         <Box
           display='flex'
           alignItems='center'
           justifyContent='center'
           height='100%'
         >
-          <Paper variant='outlined' elevation={2}>
-            <Box margin={2}>
-              <Typography variant='h3'>Sign Up</Typography>
+          <Paper elevation={3}>
+            <Box m={4}>
+              <Box m={2}>
+                <Typography align='center' variant='h5' component='h1'>
+                  Sign up for your account
+                </Typography>
+              </Box>
+
               <Form
                 {...credentials}
                 handleChange={handleChange}
@@ -74,8 +80,8 @@ const Register: React.FC = (): React.ReactElement => {
             </Box>
           </Paper>
         </Box>
-      </Container>
-    </Box>
+      </Box>
+    </Container>
   );
 };
 
