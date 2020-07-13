@@ -6,6 +6,7 @@ import { Data } from '../utils/Transformer';
 export type LoginResponse = Data & { accessToken: string };
 export type LogoutResponse = Data & { message: string };
 export type RegisterResponse = Data & { message: string };
+export type VerificationResponse = Data & { message: string };
 
 const setToken = (token: string): void => {
   localStorage.setItem('access_token', token);
@@ -20,6 +21,33 @@ const register = (credentials: RegisterCredentials): Promise<object> =>
     Http.post('auth/register', Transformer.send(credentials))
       .then((res) => {
         const data = Transformer.fetch(res.data) as RegisterResponse;
+
+        return resolve(data);
+      })
+      .catch((err) => {
+        const { status: code } = err.response;
+
+        const data = {
+          message: err.response.data.message,
+          errors: {},
+          code,
+        };
+
+        data.message = err.response.data.message;
+
+        if (code === 422) {
+          data.errors = Transformer.errors(err.response.data.errors);
+        }
+
+        return reject(data);
+      })
+  );
+
+const verify = (url: string): Promise<object> =>
+  new Promise((resolve, reject) =>
+    Http.get(url)
+      .then((res) => {
+        const data = Transformer.fetch(res.data) as VerificationResponse;
 
         return resolve(data);
       })
@@ -92,4 +120,4 @@ const logout = (): Promise<object> =>
     })
   );
 
-export { clearToken, login, logout, register };
+export { clearToken, login, logout, register, verify };

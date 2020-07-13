@@ -1,6 +1,7 @@
 import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Register from '../pages/Register';
+import Verify from '../pages/Verify';
 import { RouteInterface } from '../common/types';
 import Dashboard from '../pages/Dashboard';
 
@@ -21,6 +22,12 @@ const routes: Array<RouteInterface> = [
     path: '/register',
     exact: true,
     component: Register,
+    auth: false,
+  },
+  {
+    path: '/verify',
+    exact: true,
+    component: Verify,
     auth: false,
   },
   {
