@@ -15,11 +15,7 @@ const FormActions = ({ actions }: FormActionsProps): React.ReactElement => {
     <Box display='flex' justifyContent='flex-end'>
       {actions.map(
         ({ className, children, ...rest }: ButtonProps, index: number) => (
-          <Button
-            key={index}
-            className={classNames(classes.action, className)}
-            {...rest}
-          >
+          <Button key={index} {...rest}>
             {children}
           </Button>
         )

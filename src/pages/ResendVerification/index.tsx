@@ -4,30 +4,23 @@ import { Redirect } from 'react-router-dom';
 import { Box, Container, Paper, Typography } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
-import { RegisterCredentials } from '../../common/types';
 import { useAuth } from '../../context/AuthContext';
-import { register, RegisterResponse } from '../../services/authService';
+import { resendVerification, VerificationResponse } from '../../services/authService';
 import Errors from '../../utils/Errors';
 import Form from './form';
 import { useStyles } from './styles';
 
-const Register: React.FC = (): React.ReactElement => {
+const Login: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<Errors>(new Errors());
-  const [credentials, setCredentials] = useState<RegisterCredentials>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    passwordConfirmation: '',
-  });
+  const [email, setEmail] = useState<string>('');
 
-  const { enqueueSnackbar } = useSnackbar();
   const { accessToken } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
 
   const handleChange = (name: string, value: string): void => {
-    setCredentials({ ...credentials, [name]: value });
+    setEmail(value);
 
     errors.clear(name);
   };
@@ -37,8 +30,8 @@ const Register: React.FC = (): React.ReactElement => {
 
     setLoading(true);
 
-    register(credentials)
-      .then((res: RegisterResponse) => {
+    resendVerification(email)
+      .then((res: VerificationResponse) => {
         enqueueSnackbar(res.message, { variant: 'success' });
         setLoading(false);
       })
@@ -66,15 +59,15 @@ const Register: React.FC = (): React.ReactElement => {
             <Box m={4}>
               <Box m={2}>
                 <Typography align='center' variant='h5' component='h1'>
-                  Sign up for your account
+                  Resend Verification Email
                 </Typography>
               </Box>
 
               <Form
-                {...credentials}
+                email={email}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
-                loading={loading}
+                submitting={loading}
                 errors={errors}
               />
             </Box>
@@ -85,4 +78,4 @@ const Register: React.FC = (): React.ReactElement => {
   );
 };
 
-export default Register;
+export default Login;

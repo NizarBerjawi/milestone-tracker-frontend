@@ -9,7 +9,6 @@ import Errors from '../../utils/Errors';
 
 interface FormProps {
   email: string;
-  password: string;
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
   submitting: boolean;
@@ -18,25 +17,18 @@ interface FormProps {
 
 const Form = (props: FormProps): React.ReactElement => {
   const history = useHistory();
-  const {
-    errors,
-    email,
-    password,
-    submitting,
-    handleChange,
-    handleSubmit,
-  } = props;
+  const { errors, email, submitting, handleChange, handleSubmit } = props;
 
   const actions: ButtonProps[] = [
     {
       variant: 'contained',
-      children: 'Cancel',
+      children: 'Back',
       color: 'secondary',
-      onClick: (): void => history.push('/'),
+      onClick: (): void => history.push('/login'),
     },
     {
       variant: 'contained',
-      children: 'Login',
+      children: 'Resend',
       color: 'primary',
       disabled: submitting,
       loading: submitting,
@@ -64,19 +56,6 @@ const Form = (props: FormProps): React.ReactElement => {
           onChange={onChange}
           error={errors.has('email')}
           helperText={errors.first('email')}
-        />
-
-        <TextField
-          type='password'
-          label='Password'
-          name='password'
-          value={password}
-          variant='outlined'
-          margin='normal'
-          fullWidth
-          onChange={onChange}
-          error={errors.has('password')}
-          helperText={errors.first('password')}
         />
 
         <FormActions actions={actions} />

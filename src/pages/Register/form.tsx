@@ -21,11 +21,8 @@ interface FormProps {
 const Form = (props: FormProps): React.ReactElement => {
   const history = useHistory();
   const {
-    firstName,
-    lastName,
     email,
     password,
-    passwordConfirmation,
     handleChange,
     handleSubmit,
     loading,
@@ -58,32 +55,6 @@ const Form = (props: FormProps): React.ReactElement => {
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit}>
       <TextField
-        type='text'
-        label='First Name'
-        name='firstName'
-        value={firstName}
-        variant='outlined'
-        margin='normal'
-        fullWidth
-        onChange={onChange}
-        error={errors.has('firstName')}
-        helperText={errors.first('firstName')}
-      />
-
-      <TextField
-        type='text'
-        label='Last Name'
-        name='lastName'
-        value={lastName}
-        variant='outlined'
-        margin='normal'
-        fullWidth
-        onChange={onChange}
-        error={errors.has('lastName')}
-        helperText={errors.first('lastName')}
-      />
-
-      <TextField
         type='email'
         label='Email'
         name='email'
@@ -107,19 +78,6 @@ const Form = (props: FormProps): React.ReactElement => {
         onChange={onChange}
         error={errors.has('password')}
         helperText={errors.first('password')}
-      />
-
-      <TextField
-        type='password'
-        label='Confirm Password'
-        name='passwordConfirmation'
-        value={passwordConfirmation}
-        variant='outlined'
-        margin='normal'
-        fullWidth
-        onChange={onChange}
-        error={errors.has('passwordConfirmation')}
-        helperText={errors.first('passwordConfirmation')}
       />
 
       <FormActions actions={actions} />

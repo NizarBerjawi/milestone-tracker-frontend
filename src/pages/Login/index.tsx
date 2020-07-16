@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, FormEvent, MouseEvent } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Box, Container, Paper, Typography } from '@material-ui/core';
+import { Redirect, useHistory } from 'react-router-dom';
+import { Box, Container, Paper, Typography, Link } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 import { LoginCredentials } from '../../common/types';
@@ -14,7 +14,6 @@ import { useStyles } from './styles';
 const Login: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<Errors>(new Errors());
-  const [showVerify, setShowVerify] = useState<boolean>(false);
   const [credentials, setCredentials] = useState<LoginCredentials>({
     email: '',
     password: '',
@@ -23,6 +22,7 @@ const Login: React.FC = (): React.ReactElement => {
   const { accessToken, setAccessToken } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
+  const history = useHistory();
 
   const handleChange = (name: string, value: string): void => {
     setCredentials({ ...credentials, [name]: value });
@@ -47,11 +47,11 @@ const Login: React.FC = (): React.ReactElement => {
       });
   };
 
-  const handleSendVerification = (e: MouseEvent): void => {
+  const handleResendEmail = (e: MouseEvent): void => {
     e.preventDefault();
 
-    setShowVerify(true);
-  }
+    history.push('/verify/resend');
+  };
 
   if (accessToken) {
     return <Redirect to='/dashboard' />;
@@ -66,7 +66,7 @@ const Login: React.FC = (): React.ReactElement => {
           justifyContent='center'
           height='100%'
         >
-          <Paper elevation={3}>
+          <Paper elevation={3} className={classes.card}>
             <Box m={4}>
               <Box m={2}>
                 <Typography align='center' variant='h5' component='h1'>
@@ -76,13 +76,17 @@ const Login: React.FC = (): React.ReactElement => {
 
               <Form
                 {...credentials}
-                showVerify={showVerify}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
-                handleSendVerification={handleSendVerification}
                 submitting={loading}
                 errors={errors}
               />
+
+              <Box display='flex' justifyContent='flex-start'>
+                <Link href='#' onClick={handleResendEmail}>
+                  Resend Verification Email
+                </Link>
+              </Box>
             </Box>
           </Paper>
         </Box>
