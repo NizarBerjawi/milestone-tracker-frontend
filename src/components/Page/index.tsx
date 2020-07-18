@@ -66,6 +66,7 @@ const Page: React.FC<PageProps> = (
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
+
         {props.children}
       </main>
     </div>

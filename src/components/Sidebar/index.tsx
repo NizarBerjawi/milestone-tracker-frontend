@@ -38,16 +38,20 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
         }),
       }}
     >
-      <div className={classes.toolbar}>
-        <IconButton onClick={props.onClose}>
-          {theme.direction === 'rtl' ? (
-            <ChevronRightIcon />
-          ) : (
-            <ChevronLeftIcon />
+        <div className={classes.toolbar}>
+          {props.open && (
+            <IconButton onClick={props.onClose}>
+              {theme.direction === 'rtl' ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
           )}
-        </IconButton>
-      </div>
+        </div>
+
       <Divider />
+
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>

@@ -19,6 +19,9 @@ import { verify, VerificationResponse } from '../../services/authService';
 import { ButtonProps } from '../../components/Button';
 import FormActions from '../../components/FormActions';
 import { useStyles } from './styles';
+import Page from '../../components/Page';
+
+const SIDEBAR_WIDTH = 240;
 
 const Verify: React.FC<RouteComponentInterface> = (
   props: RouteComponentInterface
@@ -58,6 +61,7 @@ const Verify: React.FC<RouteComponentInterface> = (
     {
       variant: 'contained',
       children: 'Login',
+      size: 'large',
       color: 'primary',
       onClick: (): void => history.push('/login'),
     },
@@ -71,41 +75,46 @@ const Verify: React.FC<RouteComponentInterface> = (
     <Backdrop className={classes.backdrop} open={true}>
       {loading && !verified && <CircularProgress color='inherit' />}
 
-      {!loading && verified && (
-        <Zoom in={true}>
-          <Box display='flex' flexDirection='column' alignItems='center'>
-            <Box display='flex' flexDirection='row' alignItems='center'>
-              <CheckCircleIcon
-                className={classes.icon}
-                htmlColor={theme.palette.success.main}
-              />
+      {!loading && (
+        <Page sidebarWidth={SIDEBAR_WIDTH} hideSidebar={true}>
+          {verified && (
+            <Zoom in={true}>
+              <Box display='flex' flexDirection='column' alignItems='center' textAlign='center'>
+                <CheckCircleIcon
+                  className={classes.icon}
+                  htmlColor={theme.palette.success.main}
+                />
 
-              <Typography variant='h4' component='h1'>
-                {message}
-              </Typography>
-            </Box>
+                <Box mb={2}>
+                  <Typography variant='h4' component='h1'>
+                    {message}
+                  </Typography>
+                </Box>
 
-            <FormActions actions={actions} />
-          </Box>
-        </Zoom>
-      )}
+                <FormActions actions={actions} />
+              </Box>
+            </Zoom>
+          )}
 
-      {!loading && !verified && (
-        <Zoom in={true}>
-          <Box display='flex' flexDirection='column' alignItems='center'>
-            <Box display='flex' flexDirection='row' alignItems='center'>
-              <ErrorIcon
-                className={classes.icon}
-                htmlColor={theme.palette.error.main}
-              />
-              <Typography variant='h4' component='h1'>
-                {message}
-              </Typography>
-            </Box>
+          {!verified && (
+            <Zoom in={true}>
+              <Box display='flex' flexDirection='column' alignItems='center' textAlign='center'>
+                <ErrorIcon
+                  className={classes.icon}
+                  htmlColor={theme.palette.error.main}
+                />
 
-            <FormActions actions={actions} />
-          </Box>
-        </Zoom>
+                <Box mb={2}>
+                  <Typography variant='h4' component='h1'>
+                    {message}
+                  </Typography>
+                </Box>
+
+                <FormActions actions={actions} />
+              </Box>
+            </Zoom>
+          )}
+        </Page>
       )}
     </Backdrop>
   );
