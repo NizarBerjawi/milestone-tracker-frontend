@@ -7,8 +7,4 @@ export const useStyles = makeStyles(() => ({
   container: {
     height: '100%',
   },
-  card: {
-    minWidth: 320,
-    width: 480,
-  },
 }));

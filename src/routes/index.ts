@@ -26,15 +26,15 @@ const routes: Array<RouteInterface> = [
     auth: false,
   },
   {
-    path: '/verify',
+    path: '/verify/send',
     exact: true,
-    component: Verify,
+    component: ResendVerification,
     auth: false,
   },
   {
-    path: '/verify/resend',
+    path: '/verify',
     exact: true,
-    component: ResendVerification,
+    component: Verify,
     auth: false,
   },
   {

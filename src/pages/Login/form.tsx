@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { ChangeEvent, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
-import { TextField } from '@material-ui/core';
+import { ChangeEvent, FormEvent, MouseEvent } from 'react';
+import { TextField, Box, Link } from '@material-ui/core';
 
 import { ButtonProps } from '../../components/Button';
 import FormActions from '../../components/FormActions';
@@ -12,12 +11,12 @@ interface FormProps {
   password: string;
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
+  handleResendEmail: (e: MouseEvent) => void;
   submitting: boolean;
   errors: Errors;
 }
 
 const Form = (props: FormProps): React.ReactElement => {
-  const history = useHistory();
   const {
     errors,
     email,
@@ -25,18 +24,14 @@ const Form = (props: FormProps): React.ReactElement => {
     submitting,
     handleChange,
     handleSubmit,
+    handleResendEmail,
   } = props;
 
   const actions: ButtonProps[] = [
     {
       variant: 'contained',
-      children: 'Cancel',
-      color: 'secondary',
-      onClick: (): void => history.push('/'),
-    },
-    {
-      variant: 'contained',
       children: 'Login',
+      size: 'large',
       color: 'primary',
       disabled: submitting,
       loading: submitting,
@@ -51,37 +46,46 @@ const Form = (props: FormProps): React.ReactElement => {
   };
 
   return (
-    <React.Fragment>
-      <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-        <TextField
-          type='email'
-          label='Email'
-          name='email'
-          value={email}
-          variant='outlined'
-          margin='normal'
-          fullWidth
-          onChange={onChange}
-          error={errors.has('email')}
-          helperText={errors.first('email')}
-        />
+    <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+      <TextField
+        type='email'
+        label='Email'
+        name='email'
+        value={email}
+        variant='outlined'
+        margin='normal'
+        fullWidth
+        onChange={onChange}
+        error={errors.has('email')}
+        helperText={errors.first('email')}
+      />
 
-        <TextField
-          type='password'
-          label='Password'
-          name='password'
-          value={password}
-          variant='outlined'
-          margin='normal'
-          fullWidth
-          onChange={onChange}
-          error={errors.has('password')}
-          helperText={errors.first('password')}
-        />
+      <TextField
+        type='password'
+        label='Password'
+        name='password'
+        value={password}
+        variant='outlined'
+        margin='normal'
+        fullWidth
+        onChange={onChange}
+        error={errors.has('password')}
+        helperText={errors.first('password')}
+      />
+
+      <Box display='flex' alignItems='center' justifyContent='space-between'>
+        <Box component='span'>
+          Haven&apos;t received your confirmation email yet?
+          <Box component='span' ml={0.5}>
+            <Link href='#' onClick={handleResendEmail}>
+              Resend Email.
+            </Link>
+          </Box>
+        </Box>
 
         <FormActions actions={actions} />
-      </form>
-    </React.Fragment>
+      </Box>
+    </form>
   );
 };
 

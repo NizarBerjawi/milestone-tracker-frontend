@@ -1,14 +1,20 @@
 import * as React from 'react';
 import { useState, FormEvent } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Box, Container, Paper, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 import { useAuth } from '../../context/AuthContext';
-import { resendVerification, VerificationResponse } from '../../services/authService';
+import {
+  resendVerification,
+  VerificationResponse,
+} from '../../services/authService';
 import Errors from '../../utils/Errors';
+import Page from '../../components/Page';
 import Form from './form';
 import { useStyles } from './styles';
+
+const SIDEBAR_WIDTH = 240;
 
 const Login: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,7 +23,6 @@ const Login: React.FC = (): React.ReactElement => {
 
   const { accessToken } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
-  const classes = useStyles();
 
   const handleChange = (name: string, value: string): void => {
     setEmail(value);
@@ -47,34 +52,29 @@ const Login: React.FC = (): React.ReactElement => {
   }
 
   return (
-    <Container maxWidth='sm' className={classes.container}>
-      <Box className={classes.page}>
-        <Box
-          display='flex'
-          alignItems='center'
-          justifyContent='center'
-          height='100%'
-        >
-          <Paper elevation={3} className={classes.card}>
-            <Box m={4}>
-              <Box m={2}>
-                <Typography align='center' variant='h5' component='h1'>
-                  Resend Verification Email
-                </Typography>
-              </Box>
+    <Page sidebarWidth={SIDEBAR_WIDTH} hideSidebar={true}>
+      <Box
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        height='100%'
+      >
+        <Box m={4} maxWidth={480} width={'100%'}>
+          <Typography variant='h4' component='h1'>
+            Resend Confirmation
+          </Typography>
 
-              <Form
-                email={email}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                submitting={loading}
-                errors={errors}
-              />
-            </Box>
-          </Paper>
+
+          <Form
+            email={email}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            submitting={loading}
+            errors={errors}
+          />
         </Box>
       </Box>
-    </Container>
+    </Page>
   );
 };
 

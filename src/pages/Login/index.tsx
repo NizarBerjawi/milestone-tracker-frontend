@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { useState, FormEvent, MouseEvent } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
-import { Box, Container, Paper, Typography, Link } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 import { LoginCredentials } from '../../common/types';
 import { useAuth } from '../../context/AuthContext';
 import { login, LoginResponse } from '../../services/authService';
 import Errors from '../../utils/Errors';
+import Page from '../../components/Page';
 import Form from './form';
-import { useStyles } from './styles';
+
+const SIDEBAR_WIDTH = 240;
 
 const Login: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,7 +23,6 @@ const Login: React.FC = (): React.ReactElement => {
 
   const { accessToken, setAccessToken } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
-  const classes = useStyles();
   const history = useHistory();
 
   const handleChange = (name: string, value: string): void => {
@@ -50,7 +51,7 @@ const Login: React.FC = (): React.ReactElement => {
   const handleResendEmail = (e: MouseEvent): void => {
     e.preventDefault();
 
-    history.push('/verify/resend');
+    history.push('/verify/send');
   };
 
   if (accessToken) {
@@ -58,40 +59,29 @@ const Login: React.FC = (): React.ReactElement => {
   }
 
   return (
-    <Container maxWidth='sm' className={classes.container}>
-      <Box className={classes.page}>
-        <Box
-          display='flex'
-          alignItems='center'
-          justifyContent='center'
-          height='100%'
-        >
-          <Paper elevation={3} className={classes.card}>
-            <Box m={4}>
-              <Box m={2}>
-                <Typography align='center' variant='h5' component='h1'>
-                  Log in to {process.env.APP_NAME}
-                </Typography>
-              </Box>
+    <Page sidebarWidth={SIDEBAR_WIDTH} hideSidebar={true}>
+      <Box
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        height='100%'
+      >
+        <Box m={4} maxWidth={480} width='100%'>
+          <Typography variant='h4' component='h1'>
+            Log in to {process.env.APP_NAME}
+          </Typography>
 
-              <Form
-                {...credentials}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                submitting={loading}
-                errors={errors}
-              />
-
-              <Box display='flex' justifyContent='flex-start'>
-                <Link href='#' onClick={handleResendEmail}>
-                  Resend Verification Email
-                </Link>
-              </Box>
-            </Box>
-          </Paper>
+          <Form
+            {...credentials}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleResendEmail={handleResendEmail}
+            submitting={loading}
+            errors={errors}
+          />
         </Box>
       </Box>
-    </Container>
+    </Page>
   );
 };
 

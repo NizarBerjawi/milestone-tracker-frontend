@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
 import { ChangeEvent, FormEvent } from 'react';
 import { TextField } from '@material-ui/core';
 import FormActions from '../../components/FormActions';
@@ -14,34 +13,29 @@ interface FormProps {
   passwordConfirmation: string;
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
-  loading: boolean;
+  submitting: boolean;
   errors: Errors;
 }
 
 const Form = (props: FormProps): React.ReactElement => {
-  const history = useHistory();
   const {
     email,
     password,
+    passwordConfirmation,
     handleChange,
     handleSubmit,
-    loading,
+    submitting,
     errors,
   } = props;
 
   const actions: ButtonProps[] = [
     {
       variant: 'contained',
-      children: 'Cancel',
-      color: 'secondary',
-      onClick: (): void => history.push('/'),
-    },
-    {
-      variant: 'contained',
       children: 'Register',
+      size: 'large',
       color: 'primary',
-      disabled: loading,
-      loading: loading,
+      disabled: submitting,
+      loading: submitting,
       type: 'submit',
     },
   ];
@@ -78,6 +72,19 @@ const Form = (props: FormProps): React.ReactElement => {
         onChange={onChange}
         error={errors.has('password')}
         helperText={errors.first('password')}
+      />
+
+      <TextField
+        type='password'
+        label='Confirm Password'
+        name='passwordConfirmation'
+        value={passwordConfirmation}
+        variant='outlined'
+        margin='normal'
+        fullWidth
+        onChange={onChange}
+        error={errors.has('passwordConfirmation')}
+        helperText={errors.first('passwordConfirmation')}
       />
 
       <FormActions actions={actions} />

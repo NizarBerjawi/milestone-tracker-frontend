@@ -23,6 +23,7 @@ const Form = (props: FormProps): React.ReactElement => {
     {
       variant: 'contained',
       children: 'Back',
+      size: 'large',
       color: 'secondary',
       onClick: (): void => history.push('/login'),
     },
@@ -30,6 +31,7 @@ const Form = (props: FormProps): React.ReactElement => {
       variant: 'contained',
       children: 'Resend',
       color: 'primary',
+      size: 'large',
       disabled: submitting,
       loading: submitting,
       type: 'submit',
@@ -43,24 +45,22 @@ const Form = (props: FormProps): React.ReactElement => {
   };
 
   return (
-    <React.Fragment>
-      <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-        <TextField
-          type='email'
-          label='Email'
-          name='email'
-          value={email}
-          variant='outlined'
-          margin='normal'
-          fullWidth
-          onChange={onChange}
-          error={errors.has('email')}
-          helperText={errors.first('email')}
-        />
+    <form noValidate autoComplete='off' onSubmit={handleSubmit} style={{width: '100%'}}>
+      <TextField
+        type='email'
+        label='Email'
+        name='email'
+        value={email}
+        variant='outlined'
+        margin='normal'
+        fullWidth
+        onChange={onChange}
+        error={errors.has('email')}
+        helperText={errors.first('email')}
+      />
 
-        <FormActions actions={actions} />
-      </form>
-    </React.Fragment>
+      <FormActions actions={actions} />
+    </form>
   );
 };
 
