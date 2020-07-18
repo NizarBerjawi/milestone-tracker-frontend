@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { ChangeEvent, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { TextField } from '@material-ui/core';
 
 import { ButtonProps } from '../../components/Button';
@@ -11,21 +10,28 @@ interface FormProps {
   email: string;
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
+  handleBack: (e: MouseEvent) => void;
   submitting: boolean;
   errors: Errors;
 }
 
 const Form = (props: FormProps): React.ReactElement => {
-  const history = useHistory();
-  const { errors, email, submitting, handleChange, handleSubmit } = props;
+  const {
+    errors,
+    email,
+    submitting,
+    handleChange,
+    handleSubmit,
+    handleBack,
+  } = props;
 
   const actions: ButtonProps[] = [
     {
-      variant: 'contained',
+      variant: 'outlined',
       children: 'Back',
       size: 'large',
       color: 'secondary',
-      onClick: (): void => history.push('/login'),
+      onClick: handleBack,
     },
     {
       variant: 'contained',
@@ -45,7 +51,12 @@ const Form = (props: FormProps): React.ReactElement => {
   };
 
   return (
-    <form noValidate autoComplete='off' onSubmit={handleSubmit} style={{width: '100%'}}>
+    <form
+      noValidate
+      autoComplete='off'
+      onSubmit={handleSubmit}
+      style={{ width: '100%' }}
+    >
       <TextField
         type='email'
         label='Email'

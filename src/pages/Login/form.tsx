@@ -12,6 +12,7 @@ interface FormProps {
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
   handleResendEmail: (e: MouseEvent) => void;
+  handleBack: (e: MouseEvent) => void;
   submitting: boolean;
   errors: Errors;
 }
@@ -24,10 +25,18 @@ const Form = (props: FormProps): React.ReactElement => {
     submitting,
     handleChange,
     handleSubmit,
+    handleBack,
     handleResendEmail,
   } = props;
 
   const actions: ButtonProps[] = [
+    {
+      variant: 'outlined',
+      children: 'Back',
+      size: 'large',
+      color: 'secondary',
+      onClick: handleBack,
+    },
     {
       variant: 'contained',
       children: 'Login',

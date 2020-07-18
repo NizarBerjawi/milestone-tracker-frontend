@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { TextField } from '@material-ui/core';
 import FormActions from '../../components/FormActions';
 import { ButtonProps } from '../../components/Button';
@@ -13,6 +13,7 @@ interface FormProps {
   passwordConfirmation: string;
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
+  handleBack: (e: MouseEvent) => void;
   submitting: boolean;
   errors: Errors;
 }
@@ -24,11 +25,19 @@ const Form = (props: FormProps): React.ReactElement => {
     passwordConfirmation,
     handleChange,
     handleSubmit,
+    handleBack,
     submitting,
     errors,
   } = props;
 
   const actions: ButtonProps[] = [
+    {
+      variant: 'outlined',
+      children: 'Back',
+      size: 'large',
+      color: 'secondary',
+      onClick: handleBack,
+    },
     {
       variant: 'contained',
       children: 'Register',
