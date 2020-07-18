@@ -30,6 +30,7 @@ const TopMenu: React.FC<TopMenuProps> = (props: TopMenuProps) => {
       className={classNames(classes.appBar, {
         [classes.appBarShift]: props.openSidebar,
       })}
+      elevation={0}
     >
       <Toolbar>
         {!props.hideIcon && (
@@ -42,7 +43,7 @@ const TopMenu: React.FC<TopMenuProps> = (props: TopMenuProps) => {
               [classes.hide]: props.openSidebar,
             })}
           >
-            <MenuIcon />
+            <MenuIcon color='primary' />
           </IconButton>
         )}
         <Typography variant='h6' className={classes.title}>
@@ -55,14 +56,18 @@ const TopMenu: React.FC<TopMenuProps> = (props: TopMenuProps) => {
           <React.Fragment>
             <Button
               variant='outlined'
-              className={classNames(classes.action, classes.secondary)}
+              size='large'
+              color='secondary'
+              className={classNames(classes.action)}
               onClick={props.onLoginClick}
             >
               Login
             </Button>
             <Button
-              variant='contained'
-              className={classNames(classes.action, classes.primary)}
+              variant='outlined'
+              size='large'
+              color='primary'
+              className={classNames(classes.action)}
               onClick={props.onRegisterClick}
             >
               Sign Up
@@ -73,7 +78,8 @@ const TopMenu: React.FC<TopMenuProps> = (props: TopMenuProps) => {
         {accessToken && (
           <Button
             variant='contained'
-            className={classNames(classes.action, classes.primary)}
+            size='large'
+            className={classNames(classes.action)}
             onClick={props.onLogoutClick}
             loading={props.loggingOut}
           >

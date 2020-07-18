@@ -9,6 +9,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      backgroundColor: 'transparent',
     },
     appBarShift: ({ sidebarWidth }: TopMenuProps) => ({
       marginLeft: sidebarWidth,

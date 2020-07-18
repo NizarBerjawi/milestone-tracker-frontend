@@ -70,6 +70,33 @@ const verify = (url: string): Promise<object> =>
       })
   );
 
+const resendVerification = (email: string): Promise<object> =>
+  new Promise((resolve, reject) =>
+    Http.post('auth/email/resend', { email })
+      .then((res) => {
+        const data = Transformer.fetch(res.data) as VerificationResponse;
+
+        return resolve(data);
+      })
+      .catch((err) => {
+        const { status: code } = err.response;
+
+        const data = {
+          message: err.response.data.message,
+          errors: {},
+          code,
+        };
+
+        data.message = err.response.data.message;
+
+        if (code === 422) {
+          data.errors = Transformer.errors(err.response.data.errors);
+        }
+
+        return reject(data);
+      })
+  );
+
 /**
  *
  * @param credentials
@@ -120,4 +147,4 @@ const logout = (): Promise<object> =>
     })
   );
 
-export { clearToken, login, logout, register, verify };
+export { clearToken, login, logout, register, verify, resendVerification };

@@ -4,6 +4,7 @@ import Register from '../pages/Register';
 import Verify from '../pages/Verify';
 import { RouteInterface } from '../common/types';
 import Dashboard from '../pages/Dashboard';
+import ResendVerification from '../pages/ResendVerification';
 
 const routes: Array<RouteInterface> = [
   {
@@ -22,6 +23,12 @@ const routes: Array<RouteInterface> = [
     path: '/register',
     exact: true,
     component: Register,
+    auth: false,
+  },
+  {
+    path: '/verify/send',
+    exact: true,
+    component: ResendVerification,
     auth: false,
   },
   {
