@@ -38,17 +38,17 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
         }),
       }}
     >
-        <div className={classes.toolbar}>
-          {props.open && (
-            <IconButton onClick={props.onClose}>
-              {theme.direction === 'rtl' ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          )}
-        </div>
+      <div className={classes.toolbar}>
+        {props.open && (
+          <IconButton onClick={props.onClose}>
+            {theme.direction === 'rtl' ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        )}
+      </div>
 
       <Divider />
 

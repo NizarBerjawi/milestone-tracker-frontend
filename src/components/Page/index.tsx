@@ -17,17 +17,14 @@ const Page: React.FC<PageProps> = (
 ) => {
   const [open, setOpen] = React.useState(false);
   const [loggingOut, setloggingOut] = React.useState(false);
+
   const classes = useStyles();
   const history = useHistory();
   const { setAccessToken } = useAuth();
 
-  const onSidebarOpen = (): void => {
-    setOpen(true);
-  };
+  const onSidebarOpen = (): void => setOpen(true);
 
-  const handleDrawerClose = (): void => {
-    setOpen(false);
-  };
+  const handleDrawerClose = (): void => setOpen(false);
 
   const onLogoutClick = (): void => {
     setloggingOut(true);

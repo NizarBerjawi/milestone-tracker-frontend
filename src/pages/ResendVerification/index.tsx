@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, FormEvent } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Box, Typography } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
@@ -12,7 +12,6 @@ import {
 import Errors from '../../utils/Errors';
 import Page from '../../components/Page';
 import Form from './form';
-import { useStyles } from './styles';
 
 const SIDEBAR_WIDTH = 240;
 
@@ -21,6 +20,7 @@ const Login: React.FC = (): React.ReactElement => {
   const [errors, setErrors] = useState<Errors>(new Errors());
   const [email, setEmail] = useState<string>('');
 
+  const history = useHistory();
   const { accessToken } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -47,6 +47,8 @@ const Login: React.FC = (): React.ReactElement => {
       });
   };
 
+  const handleBack = (): void => history.push('/login');
+
   if (accessToken) {
     return <Redirect to='/dashboard' />;
   }
@@ -64,11 +66,11 @@ const Login: React.FC = (): React.ReactElement => {
             Resend Confirmation
           </Typography>
 
-
           <Form
             email={email}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            handleBack={handleBack}
             submitting={loading}
             errors={errors}
           />
