@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, FormEvent } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Box, Typography } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
@@ -26,6 +26,7 @@ const Register: React.FC = (): React.ReactElement => {
 
   const { enqueueSnackbar } = useSnackbar();
   const { accessToken } = useAuth();
+  const history = useHistory();
 
   const handleChange = (name: string, value: string): void => {
     setCredentials({ ...credentials, [name]: value });
@@ -50,6 +51,8 @@ const Register: React.FC = (): React.ReactElement => {
       });
   };
 
+  const handleBack = (): void => history.push('/');
+
   if (accessToken) {
     return <Redirect to='/dashboard' />;
   }
@@ -71,6 +74,7 @@ const Register: React.FC = (): React.ReactElement => {
             {...credentials}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            handleBack={handleBack}
             submitting={loading}
             errors={errors}
           />

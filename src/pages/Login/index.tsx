@@ -54,6 +54,8 @@ const Login: React.FC = (): React.ReactElement => {
     history.push('/verify/send');
   };
 
+  const handleBack = (): void => history.push('/');
+
   if (accessToken) {
     return <Redirect to='/dashboard' />;
   }
@@ -75,6 +77,7 @@ const Login: React.FC = (): React.ReactElement => {
             {...credentials}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            handleBack={handleBack}
             handleResendEmail={handleResendEmail}
             submitting={loading}
             errors={errors}

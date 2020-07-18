@@ -79,7 +79,12 @@ const Verify: React.FC<RouteComponentInterface> = (
         <Page sidebarWidth={SIDEBAR_WIDTH} hideSidebar={true}>
           {verified && (
             <Zoom in={true}>
-              <Box display='flex' flexDirection='column' alignItems='center' textAlign='center'>
+              <Box
+                display='flex'
+                flexDirection='column'
+                alignItems='center'
+                textAlign='center'
+              >
                 <CheckCircleIcon
                   className={classes.icon}
                   htmlColor={theme.palette.success.main}
@@ -98,7 +103,12 @@ const Verify: React.FC<RouteComponentInterface> = (
 
           {!verified && (
             <Zoom in={true}>
-              <Box display='flex' flexDirection='column' alignItems='center' textAlign='center'>
+              <Box
+                display='flex'
+                flexDirection='column'
+                alignItems='center'
+                textAlign='center'
+              >
                 <ErrorIcon
                   className={classes.icon}
                   htmlColor={theme.palette.error.main}

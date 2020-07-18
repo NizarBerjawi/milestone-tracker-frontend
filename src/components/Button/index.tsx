@@ -3,7 +3,9 @@ import MuiButton, {
   ButtonProps as MuiButtonProps,
 } from '@material-ui/core/Button';
 import { Box, CircularProgress } from '@material-ui/core';
+
 import { useStyles } from './styles';
+
 export interface ButtonProps extends MuiButtonProps {
   loading?: boolean;
 }
@@ -11,8 +13,8 @@ export interface ButtonProps extends MuiButtonProps {
 const Button: React.FC<ButtonProps> = (
   props: React.PropsWithChildren<ButtonProps>
 ) => {
-  const classes = useStyles();
   const { children, loading, ...rest } = props;
+  const classes = useStyles();
 
   return (
     <Box className={classes.root}>
