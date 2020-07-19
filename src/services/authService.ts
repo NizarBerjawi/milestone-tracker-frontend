@@ -25,6 +25,10 @@ const register = (credentials: RegisterCredentials): Promise<object> =>
         return resolve(data);
       })
       .catch((err) => {
+        if (!err.response) {
+          return reject(err);
+        }
+
         const { status: code } = err.response;
 
         const data = {
@@ -52,6 +56,10 @@ const verify = (url: string): Promise<object> =>
         return resolve(data);
       })
       .catch((err) => {
+        if (!err.response) {
+          return reject(err);
+        }
+
         const { status: code } = err.response;
 
         const data = {
@@ -79,6 +87,10 @@ const resendVerification = (email: string): Promise<object> =>
         return resolve(data);
       })
       .catch((err) => {
+        if (!err.response) {
+          return reject(err);
+        }
+
         const { status: code } = err.response;
 
         const data = {
@@ -118,6 +130,10 @@ const login = (credentials: LoginCredentials): Promise<object> =>
         return resolve(data);
       })
       .catch((err) => {
+        if (!err.response) {
+          return reject(err);
+        }
+
         const { status: code } = err.response;
 
         const data = {
