@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { hot } from 'react-hot-loader';
 import { ThemeProvider, Theme } from '@material-ui/core';
-import PubSub from 'pubsub-js';
 import SnackbarProvider from './SnackbarProvider';
 
 import { Router } from './Router';
