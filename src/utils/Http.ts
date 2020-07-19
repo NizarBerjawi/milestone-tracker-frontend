@@ -18,6 +18,12 @@ axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (!error.response) {
+      return Promise.reject({
+        message: 'We are experiencing network issues. Please try again'
+      });
+    }
+
     if (error.response.status === 401) {
       authService.clearToken();
     }
