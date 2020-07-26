@@ -12,7 +12,7 @@ interface AppProps {
 }
 
 const App = ({ theme }: AppProps): React.ReactElement => {
-  const existingToken = JSON.parse(localStorage.getItem('access_token'));
+  const existingToken = localStorage.getItem('access_token');
   const [accessToken, setAccessToken] = useState<string>(existingToken);
 
   return (
