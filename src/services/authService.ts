@@ -8,13 +8,11 @@ export type LogoutResponse = Data & { message: string };
 export type RegisterResponse = Data & { message: string };
 export type VerificationResponse = Data & { message: string };
 
-const setToken = (token: string): void => {
+const setToken = (token: string): void =>
   localStorage.setItem('access_token', token);
-};
 
-const clearToken = (): void => {
+const clearToken = (): void =>
   localStorage.removeItem('access_token');
-};
 
 const register = (credentials: RegisterCredentials): Promise<object> =>
   new Promise((resolve, reject) =>
@@ -119,7 +117,7 @@ const login = (credentials: LoginCredentials): Promise<object> =>
       .then((res) => {
         const data = Transformer.fetch(res.data) as LoginResponse;
 
-        setToken(JSON.stringify(data.accessToken));
+        setToken(data.accessToken);
 
         if (data.accessToken) {
           Http.defaults.headers.common[
