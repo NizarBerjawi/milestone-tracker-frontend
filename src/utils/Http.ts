@@ -15,12 +15,17 @@ axios.defaults.headers.common.Accept = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+const accessToken = localStorage.getItem('access_token');
+if (accessToken) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+}
+
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (!error.response) {
       return Promise.reject({
-        message: 'We are experiencing network issues. Please try again'
+        message: 'We are experiencing network issues. Please try again',
       });
     }
 

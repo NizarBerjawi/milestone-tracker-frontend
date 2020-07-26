@@ -9,11 +9,13 @@ const PrivateRoute: React.FC = ({
 }: RouteInterface): React.ReactElement => {
   const { accessToken } = useAuth();
 
+  const isAuthenticated = accessToken && localStorage.getItem('access_token');
+
   return (
     <Route
       {...rest}
       render={(props: RouteComponentInterface): React.ReactNode =>
-        accessToken ? (
+        isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
