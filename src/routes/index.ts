@@ -4,6 +4,7 @@ import Register from '../pages/Register';
 import Verify from '../pages/Verify';
 import { RouteInterface } from '../common/types';
 import Dashboard from '../pages/Dashboard';
+import Profile from '../pages/Profile';
 import ResendVerification from '../pages/ResendVerification';
 
 const routes: Array<RouteInterface> = [
@@ -41,6 +42,12 @@ const routes: Array<RouteInterface> = [
     path: '/dashboard',
     exact: true,
     component: Dashboard,
+    auth: true,
+  },
+  {
+    path: '/profiles/create',
+    exact: true,
+    component: Profile,
     auth: true,
   },
 ];
