@@ -26,7 +26,6 @@ const Dashboard: React.FC = (): React.ReactElement => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    console.log('HERE1', user);
     if (user.email && user.profile) {
       return setLoading(false);
     }
@@ -34,7 +33,6 @@ const Dashboard: React.FC = (): React.ReactElement => {
     fetchUser()
       .then((res: ResponseWithoutMessage<UserInterface>) => {
         setUser(res.data);
-        console.log('HERE2', res.data);
         setLoading(false);
 
         if (!res.data.profile) {
