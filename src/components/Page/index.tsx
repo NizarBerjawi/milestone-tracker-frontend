@@ -20,7 +20,7 @@ const Page: React.FC<PageProps> = (
 
   const classes = useStyles();
   const history = useHistory();
-  const { setAccessToken } = useAuth();
+  const { setAccessToken, setUser } = useAuth();
 
   const onSidebarOpen = (): void => setOpen(true);
 
@@ -31,6 +31,13 @@ const Page: React.FC<PageProps> = (
 
     logout().then(() => {
       setAccessToken('');
+      setUser({
+        email: '',
+        profile: {
+          firstName: '',
+          lastName: ''
+        }
+      });
       setloggingOut(false);
     });
   };

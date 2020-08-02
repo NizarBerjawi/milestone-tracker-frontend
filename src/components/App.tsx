@@ -5,6 +5,7 @@ import { ThemeProvider, Theme } from '@material-ui/core';
 import SnackbarProvider from './SnackbarProvider';
 
 import { Router } from './Router';
+import { UserInterface } from '../common/types';
 import { AuthContext } from '../context/AuthContext';
 
 interface AppProps {
@@ -14,17 +15,22 @@ interface AppProps {
 const App = ({ theme }: AppProps): React.ReactElement => {
   const existingToken = localStorage.getItem('access_token');
   const [accessToken, setAccessToken] = useState<string>(existingToken);
+  const [user, setUser] = useState<UserInterface>({
+    email: '',
+    profile: {
+      firstName: '',
+      lastName: ''
+    }
+  });
 
   return (
-    <React.Fragment>
-      <ThemeProvider theme={theme}>
-        <SnackbarProvider>
-          <AuthContext.Provider value={{ accessToken, setAccessToken }}>
-            <Router />
-          </AuthContext.Provider>
-        </SnackbarProvider>
-      </ThemeProvider>
-    </React.Fragment>
+    <ThemeProvider theme={theme}>
+      <SnackbarProvider>
+        <AuthContext.Provider value={{ accessToken, setAccessToken, user, setUser }}>
+          <Router />
+        </AuthContext.Provider>
+      </SnackbarProvider>
+    </ThemeProvider>
   );
 };
 
