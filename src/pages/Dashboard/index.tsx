@@ -12,6 +12,7 @@ import { useSnackbar } from 'notistack';
 import Page from '../../components/Page';
 import { useStyles } from './styles';
 import { fetchUser } from '../../services/userService';
+import { useAuth } from '../../context/AuthContext';
 import { UserInterface, ResponseWithoutMessage } from '../../common/types';
 
 const sidebarWidth = 240;
@@ -19,18 +20,16 @@ const sidebarWidth = 240;
 const Dashboard: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
-  const [user, setUser] = useState<UserInterface>({
-    email: '',
-    profile: {
-      firstName: '',
-      lastName: '',
-    },
-  });
 
   const classes = useStyles();
+  const { user, setUser } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
+    if (user.email && user.profile) {
+      return setLoading(false);
+    }
+
     fetchUser()
       .then((res: ResponseWithoutMessage<UserInterface>) => {
         setUser(res.data);

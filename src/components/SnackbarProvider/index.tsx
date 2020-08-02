@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useTheme } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
 import {
   SnackbarProvider as NotiSnackbarProvider,
   SnackbarProviderProps,
   SnackbarKey,
   ProviderContext,
 } from 'notistack';
+import { useTheme } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from '@material-ui/core';
 
 const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
@@ -16,9 +16,8 @@ const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
   const theme = useTheme();
   const notistackRef = React.createRef<ProviderContext>();
 
-  const handleDismiss = (key: SnackbarKey): void => {
+  const handleDismiss = (key: SnackbarKey): void =>
     notistackRef.current.closeSnackbar(key);
-  };
 
   return (
     <NotiSnackbarProvider
