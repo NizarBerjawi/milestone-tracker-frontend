@@ -76,7 +76,7 @@ const Verify: React.FC<RouteComponentInterface> = (
       {loading && !verified && <CircularProgress color='inherit' />}
 
       {!loading && (
-        <Page sidebarWidth={SIDEBAR_WIDTH} hideSidebar={true}>
+        <Page hideSidebar={true}>
           {verified && (
             <Zoom in={true}>
               <Box

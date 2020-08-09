@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { TextField } from '@material-ui/core';
+import FormGroup from '@material-ui/core/FormGroup';
 
-import { ButtonProps } from '../../components/Button';
+import { PersonalDetails } from '../../common/types';
+import  { ButtonProps } from '../../components/Button';
 import FormActions from '../../components/FormActions';
 import Errors from '../../utils/Errors';
 
 interface FormProps {
-  firstName: string;
-  lastName: string;
+  personalDetails?: PersonalDetails;
   handleChange: (name: string, value: string) => void;
   handleSubmit: (e: FormEvent) => void;
   submitting: boolean;
@@ -18,8 +19,7 @@ interface FormProps {
 const Form = (props: FormProps): React.ReactElement => {
   const {
     errors,
-    firstName,
-    lastName,
+    personalDetails,
     submitting,
     handleChange,
     handleSubmit,
@@ -28,13 +28,13 @@ const Form = (props: FormProps): React.ReactElement => {
   const actions: ButtonProps[] = [
     {
       variant: 'contained',
-      children: 'Submit',
+      children: 'Save',
       size: 'large',
       color: 'primary',
       disabled: submitting,
       loading: submitting,
       type: 'submit',
-    },
+    }
   ];
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -45,31 +45,33 @@ const Form = (props: FormProps): React.ReactElement => {
 
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-      <TextField
-        type='text'
-        label='First Name'
-        name='firstName'
-        value={firstName}
-        variant='outlined'
-        margin='normal'
-        fullWidth
-        onChange={onChange}
-        error={errors.has('firstName')}
-        helperText={errors.first('firstName')}
-      />
+      <FormGroup>
+        <TextField
+          type='text'
+          label='First Name'
+          name='firstName'
+          value={personalDetails.firstName}
+          variant='outlined'
+          margin='normal'
+          fullWidth
+          onChange={onChange}
+          error={errors.has('firstName')}
+          helperText={errors.first('firstName')}
+          />
 
-      <TextField
-        type='lastName'
-        label='Last Name'
-        name='lastName'
-        value={lastName}
-        variant='outlined'
-        margin='normal'
-        fullWidth
-        onChange={onChange}
-        error={errors.has('lastName')}
-        helperText={errors.first('lastName')}
-      />
+        <TextField
+          type='lastName'
+          label='Last Name'
+          name='lastName'
+          value={personalDetails.lastName}
+          variant='outlined'
+          margin='normal'
+          fullWidth
+          onChange={onChange}
+          error={errors.has('lastName')}
+          helperText={errors.first('lastName')}
+          />
+      </FormGroup>
 
       <FormActions actions={actions} />
     </form>

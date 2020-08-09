@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import {
-  Typography,
-  Box,
-  Backdrop,
-  CircularProgress,
-} from '@material-ui/core';
+import { Typography, Backdrop, CircularProgress } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 import Page from '../../components/Page';
@@ -14,8 +9,6 @@ import { useStyles } from './styles';
 import { fetchUser } from '../../services/userService';
 import { useAuth } from '../../context/AuthContext';
 import { UserInterface, ResponseWithoutMessage } from '../../common/types';
-
-const sidebarWidth = 240;
 
 const Dashboard: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState(true);
@@ -50,15 +43,13 @@ const Dashboard: React.FC = (): React.ReactElement => {
   }
 
   return (
-    <Page sidebarWidth={sidebarWidth}>
+    <Page hideSidebar={true}>
       <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color='inherit' />
       </Backdrop>
 
       {!loading && (
-        <Box m={2}>
-          <Typography variant='h1'>Dashboard</Typography>
-        </Box>
+        <Typography variant='h1'>Dashboard</Typography>
       )}
     </Page>
   );

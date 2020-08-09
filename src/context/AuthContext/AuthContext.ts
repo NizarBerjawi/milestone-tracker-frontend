@@ -14,12 +14,12 @@ export const AuthContext = React.createContext<AuthContextType>({
     email: '',
     profile: {
       firstName: '',
-      lastName: ''
-    }
+      lastName: '',
+    },
   },
   accessToken: '',
   setAccessToken: () => null,
-  setUser: () => null
+  setUser: () => null,
 });
 
 export const useAuth = (): AuthContextType => useContext(AuthContext);

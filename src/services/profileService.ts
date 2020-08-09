@@ -1,8 +1,8 @@
 import Http from '../utils/Http';
 import * as Transformer from '../utils/Transformer';
-import { ProfileInterface } from '../common/types';
+import { PersonalDetails } from '../common/types';
 
-const postProfile = (profile: ProfileInterface): Promise<object> =>
+const postProfile = (profile: PersonalDetails): Promise<object> =>
   new Promise((resolve, reject) =>
     Http.post('/profiles', Transformer.send(profile))
       .then((res) => {

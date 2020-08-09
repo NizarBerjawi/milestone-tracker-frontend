@@ -11,8 +11,7 @@ export type VerificationResponse = Data & { message: string };
 const setToken = (token: string): void =>
   localStorage.setItem('access_token', token);
 
-const clearToken = (): void =>
-  localStorage.removeItem('access_token');
+const clearToken = (): void => localStorage.removeItem('access_token');
 
 const register = (credentials: RegisterCredentials): Promise<object> =>
   new Promise((resolve, reject) =>

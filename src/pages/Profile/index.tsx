@@ -1,46 +1,48 @@
 import * as React from 'react';
-import { useState, FormEvent } from 'react';
+import { useEffect, useState, FormEvent } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Typography, Box } from '@material-ui/core';
+import { Box, Typography, useTheme } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { useSnackbar } from 'notistack';
 
-import { ProfileInterface, ResponseWithMessage } from '../../common/types';
+import { PersonalDetails, ResponseWithMessage } from '../../common/types';
 import { postProfile } from '../../services/profileService';
+import { useAuth } from '../../context/AuthContext';
 import Page from '../../components/Page';
 import Errors from '../../utils/Errors';
 import Form from './form';
-
-const sidebarWidth = 240;
 
 const Profile: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Errors>(new Errors());
   const [redirect, setRedirect] = useState(false);
-  const [profile, setProfile] = useState<ProfileInterface>({
+  const [personalDetails, setPersonalDetails] = useState<PersonalDetails>({
     firstName: '',
     lastName: '',
   });
 
+  const theme = useTheme();
+  const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleChange = (name: string, value: string): void => {
-    setProfile({ ...profile, [name]: value });
-
-    errors.clear(name);
-  };
+  useEffect(() => {
+    if (user.email && user.profile) {
+      setRedirect(true);
+    }
+  }, [])
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
     setLoading(true);
 
-    postProfile(profile)
-      .then((res: ResponseWithMessage<ProfileInterface>) => {
+    postProfile(personalDetails)
+      .then((res: ResponseWithMessage<PersonalDetails>) => {
         enqueueSnackbar(res.message, { variant: 'success' });
         setLoading(false);
 
         if (res.data) {
-          setRedirect(true)
+          setRedirect(true);
         }
       })
       .catch((err) => {
@@ -50,27 +52,45 @@ const Profile: React.FC = (): React.ReactElement => {
       });
   };
 
+  const handleChange = (name: string, value: string): void => {
+    setPersonalDetails({ ...personalDetails, [name]: value });
+
+    errors.clear(name);
+  };
+
   if (redirect) {
     return <Redirect to='/dashboard' push />;
   }
 
   return (
-    <Page sidebarWidth={sidebarWidth}>
+    <Page hideSidebar={true}>
       <Box
         display='flex'
         alignItems='center'
         justifyContent='center'
         height='100%'
       >
-        <Box m={4} maxWidth={480} width='100%'>
+        <Box
+          m={2}
+          p={2}
+          maxWidth={theme.breakpoints.width('sm')}
+          width='100%'
+        >
           <Typography variant='h4' component='h1'>
-            Welcome to {process.env.APP_NAME}!
-          </Typography>
+              Let&apos;s get you started!
+            </Typography>
+
+
+            <Box mt={2}>
+              <Alert severity="info">
+                We need to collect your full name so that people who will work with you can know you.
+              </Alert>
+            </Box>
 
           <Form
-            {...profile}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
+            personalDetails={personalDetails}
+            handleChange={(name: string, value: string): void => handleChange(name, value)}
+            handleSubmit={(e: FormEvent): void => handleSubmit(e)}
             submitting={loading}
             errors={errors}
           />
