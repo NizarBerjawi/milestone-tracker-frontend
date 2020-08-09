@@ -21,8 +21,6 @@ import FormActions from '../../components/FormActions';
 import { useStyles } from './styles';
 import Page from '../../components/Page';
 
-const SIDEBAR_WIDTH = 240;
-
 const Verify: React.FC<RouteComponentInterface> = (
   props: RouteComponentInterface
 ) => {
