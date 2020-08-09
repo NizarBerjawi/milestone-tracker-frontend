@@ -21,8 +21,6 @@ import FormActions from '../../components/FormActions';
 import { useStyles } from './styles';
 import Page from '../../components/Page';
 
-const SIDEBAR_WIDTH = 240;
-
 const Verify: React.FC<RouteComponentInterface> = (
   props: RouteComponentInterface
 ) => {
@@ -76,7 +74,7 @@ const Verify: React.FC<RouteComponentInterface> = (
       {loading && !verified && <CircularProgress color='inherit' />}
 
       {!loading && (
-        <Page sidebarWidth={SIDEBAR_WIDTH} hideSidebar={true}>
+        <Page hideSidebar={true}>
           {verified && (
             <Zoom in={true}>
               <Box

@@ -20,9 +20,9 @@ const Button: React.FC<ButtonProps> = (
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <MuiButton {...rest}>{children}</MuiButton>
-        {loading &&
+        {loading && (
           <CircularProgress size={24} className={classes.buttonProgress} />
-        }
+        )}
       </Box>
     </Box>
   );

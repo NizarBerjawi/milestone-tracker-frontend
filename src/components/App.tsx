@@ -19,14 +19,16 @@ const App = ({ theme }: AppProps): React.ReactElement => {
     email: '',
     profile: {
       firstName: '',
-      lastName: ''
-    }
+      lastName: '',
+    },
   });
 
   return (
     <ThemeProvider theme={theme}>
       <SnackbarProvider>
-        <AuthContext.Provider value={{ accessToken, setAccessToken, user, setUser }}>
+        <AuthContext.Provider
+          value={{ accessToken, setAccessToken, user, setUser }}
+        >
           <Router />
         </AuthContext.Provider>
       </SnackbarProvider>

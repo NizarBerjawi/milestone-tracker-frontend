@@ -6,8 +6,6 @@ import { useAuth } from '../../context/AuthContext';
 import Page from '../../components/Page';
 import { Box } from '@material-ui/core';
 
-const SIDEBAR_WIDTH = 240;
-
 const Home: React.FC = (): React.ReactElement => {
   const { accessToken } = useAuth();
 
@@ -16,7 +14,7 @@ const Home: React.FC = (): React.ReactElement => {
   }
 
   return (
-    <Page sidebarWidth={SIDEBAR_WIDTH} hideSidebar={true}>
+    <Page hideSidebar={true}>
       <Box
         display='flex'
         alignItems='center'
