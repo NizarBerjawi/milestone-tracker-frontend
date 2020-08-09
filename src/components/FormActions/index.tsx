@@ -8,7 +8,7 @@ interface FormActionsProps {
 }
 
 const FormActions = ({ actions }: FormActionsProps): React.ReactElement => (
-  <Box display='flex' justifyContent='flex-end'>
+  <Box display='flex' alignItems='center' justifyContent='flex-end'>
     {actions.map(
       ({ className, children, ...rest }: ButtonProps, index: number) => (
         <Button key={index} className={className} {...rest}>

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
+import { Container } from '@material-ui/core';
 
 import TopMenu from '../TopMenu';
 import Sidebar from '../Sidebar';
@@ -12,11 +13,14 @@ interface PageProps {
   sidebarWidth?: number;
 }
 
+const DEFAULT_SIDEBAR_WIDTH = 240;
+
 const Page: React.FC<PageProps> = (
   props: React.PropsWithChildren<PageProps>
 ) => {
   const [open, setOpen] = React.useState(false);
   const [loggingOut, setloggingOut] = React.useState(false);
+  const sidebarWidth = props.sidebarWidth ?? DEFAULT_SIDEBAR_WIDTH;
 
   const classes = useStyles();
   const history = useHistory();
@@ -35,10 +39,9 @@ const Page: React.FC<PageProps> = (
         email: '',
         profile: {
           firstName: '',
-          lastName: ''
-        }
+          lastName: '',
+        },
       });
-      setloggingOut(false);
     });
   };
 
@@ -51,7 +54,7 @@ const Page: React.FC<PageProps> = (
       <TopMenu
         title={process.env.APP_NAME}
         hideIcon={props.hideSidebar}
-        sidebarWidth={props.sidebarWidth}
+        sidebarWidth={sidebarWidth}
         openSidebar={!props.hideSidebar && open}
         loggingOut={loggingOut}
         onLoginClick={onLoginClick}
@@ -64,14 +67,14 @@ const Page: React.FC<PageProps> = (
         <Sidebar
           open={open}
           onClose={handleDrawerClose}
-          width={props.sidebarWidth}
+          width={sidebarWidth}
         />
       )}
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-        {props.children}
+        <Container maxWidth='lg'>{props.children}</Container>
       </main>
     </div>
   );

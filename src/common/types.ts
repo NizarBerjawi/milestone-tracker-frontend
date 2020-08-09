@@ -1,7 +1,7 @@
 import { RouteProps, RouteComponentProps } from 'react-router-dom';
 
-export type ResponseWithoutMessage<P> = {data: P};
-export type ResponseWithMessage<P> = {data: P} & { message: string };
+export type ResponseWithoutMessage<P> = { data: P };
+export type ResponseWithMessage<P> = { data: P } & { message: string };
 
 export interface RouteInterface extends RouteProps {
   auth?: boolean;
@@ -27,10 +27,10 @@ export interface RegisterCredentials extends LoginCredentials {
 
 export interface UserInterface {
   email: string;
-  profile?: ProfileInterface;
+  profile?: PersonalDetails;
 }
 
-export interface ProfileInterface {
+export interface PersonalDetails {
   firstName: string;
   lastName: string;
 }

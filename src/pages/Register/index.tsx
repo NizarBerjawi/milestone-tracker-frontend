@@ -11,8 +11,6 @@ import Errors from '../../utils/Errors';
 import Page from '../../components/Page';
 import Form from './form';
 
-const SIDEBAR_WIDTH = 240;
-
 const Register: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<Errors>(new Errors());
@@ -58,7 +56,7 @@ const Register: React.FC = (): React.ReactElement => {
   }
 
   return (
-    <Page sidebarWidth={SIDEBAR_WIDTH} hideSidebar={true}>
+    <Page hideSidebar={true}>
       <Box
         display='flex'
         alignItems='center'
