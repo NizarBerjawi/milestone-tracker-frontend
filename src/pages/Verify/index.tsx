@@ -66,7 +66,7 @@ const Verify: React.FC<RouteComponentInterface> = (
   ];
 
   if (accessToken) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/projects' />;
   }
 
   return (

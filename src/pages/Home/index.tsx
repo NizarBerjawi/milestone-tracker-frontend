@@ -10,7 +10,7 @@ const Home: React.FC = (): React.ReactElement => {
   const { accessToken } = useAuth();
 
   if (accessToken) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/projects' />;
   }
 
   return (

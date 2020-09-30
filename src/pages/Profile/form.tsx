@@ -4,7 +4,7 @@ import { TextField } from '@material-ui/core';
 import FormGroup from '@material-ui/core/FormGroup';
 
 import { PersonalDetails } from '../../common/types';
-import  { ButtonProps } from '../../components/Button';
+import { ButtonProps } from '../../components/Button';
 import FormActions from '../../components/FormActions';
 import Errors from '../../utils/Errors';
 
@@ -34,7 +34,7 @@ const Form = (props: FormProps): React.ReactElement => {
       disabled: submitting,
       loading: submitting,
       type: 'submit',
-    }
+    },
   ];
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -57,7 +57,7 @@ const Form = (props: FormProps): React.ReactElement => {
           onChange={onChange}
           error={errors.has('firstName')}
           helperText={errors.first('firstName')}
-          />
+        />
 
         <TextField
           type='lastName'
@@ -70,7 +70,7 @@ const Form = (props: FormProps): React.ReactElement => {
           onChange={onChange}
           error={errors.has('lastName')}
           helperText={errors.first('lastName')}
-          />
+        />
       </FormGroup>
 
       <FormActions actions={actions} />

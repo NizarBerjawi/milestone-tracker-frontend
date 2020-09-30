@@ -32,7 +32,7 @@ const TopMenu: React.FC<TopMenuProps> = (props: TopMenuProps) => {
       })}
       elevation={0}
     >
-      <Toolbar>
+      <Toolbar className={classNames(classes.toolbar)}>
         {!props.hideIcon && (
           <IconButton
             color='inherit'

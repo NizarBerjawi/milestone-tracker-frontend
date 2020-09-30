@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       }),
     }),
     menuButton: {
-      marginRight: 36,
+      marginRight: theme.spacing(6),
     },
     hide: {
       display: 'none',
@@ -40,6 +40,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     link: {
       color: theme.palette.text.secondary,
       textDecoration: 'none',
+    },
+    toolbar: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
   })
 );

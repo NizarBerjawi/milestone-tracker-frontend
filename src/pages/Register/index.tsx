@@ -52,7 +52,7 @@ const Register: React.FC = (): React.ReactElement => {
   const handleBack = (): void => history.push('/');
 
   if (accessToken) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/projects' />;
   }
 
   return (

@@ -1,5 +1,9 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import {
+  Link as RouterLink,
+  LinkProps as RouterLinkProps,
+} from 'react-router-dom';
 import { useTheme } from '@material-ui/core/styles';
 import {
   Divider,
@@ -12,8 +16,8 @@ import {
 } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import GroupIcon from '@material-ui/icons/Group';
 
 import { useStyles } from './styles';
 
@@ -23,6 +27,34 @@ export interface SidebarProps {
   onClose?: () => void;
 }
 
+interface ListItemLinkProps {
+  icon?: React.ReactElement;
+  primary: string;
+  to: string;
+}
+
+const ListItemLink = (props: ListItemLinkProps): React.ReactElement => {
+  const { icon, primary, to } = props;
+
+  const renderLink = React.useMemo(
+    () =>
+      // eslint-disable-next-line react/display-name
+      React.forwardRef<HTMLAnchorElement, Omit<RouterLinkProps, 'to'>>((itemProps, ref) => (
+        <RouterLink to={to} ref={ref} {...itemProps} />
+      )),
+    [to]
+  );
+
+  return (
+    <li>
+      <ListItem button component={renderLink}>
+        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+        <ListItemText primary={primary} />
+      </ListItem>
+    </li>
+  );
+};
+
 const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
   const classes = useStyles(props);
   const theme = useTheme();
@@ -30,6 +62,7 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
   return (
     <Drawer
       variant='permanent'
+      anchor={theme.direction === 'rtl' ? 'right' : 'left'}
       className={classNames(classes.drawer, {
         [classes.drawerOpen]: props.open,
         [classes.drawerClose]: !props.open,
@@ -56,24 +89,13 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
       <Divider />
 
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        {['Projects', 'Team'].map((text, index) => (
+          <ListItemLink
+            key={index}
+            to='/project/'
+            primary='projects'
+            icon={<AccountTreeIcon />}
+          />
         ))}
       </List>
     </Drawer>

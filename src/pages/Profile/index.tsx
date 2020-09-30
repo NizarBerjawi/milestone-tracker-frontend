@@ -29,7 +29,7 @@ const Profile: React.FC = (): React.ReactElement => {
     if (user.email && user.profile) {
       setRedirect(true);
     }
-  }, [])
+  }, []);
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
@@ -59,7 +59,7 @@ const Profile: React.FC = (): React.ReactElement => {
   };
 
   if (redirect) {
-    return <Redirect to='/dashboard' push />;
+    return <Redirect to='/projects' push />;
   }
 
   return (
@@ -70,26 +70,23 @@ const Profile: React.FC = (): React.ReactElement => {
         justifyContent='center'
         height='100%'
       >
-        <Box
-          m={2}
-          p={2}
-          maxWidth={theme.breakpoints.width('sm')}
-          width='100%'
-        >
+        <Box m={2} p={2} maxWidth={theme.breakpoints.width('sm')} width='100%'>
           <Typography variant='h4' component='h1'>
-              Let&apos;s get you started!
-            </Typography>
+            Let&apos;s get you started!
+          </Typography>
 
-
-            <Box mt={2}>
-              <Alert severity="info">
-                We need to collect your full name so that people who will work with you can know you.
-              </Alert>
-            </Box>
+          <Box mt={2}>
+            <Alert severity='info'>
+              We need to collect your full name so that people who will work
+              with you can know you.
+            </Alert>
+          </Box>
 
           <Form
             personalDetails={personalDetails}
-            handleChange={(name: string, value: string): void => handleChange(name, value)}
+            handleChange={(name: string, value: string): void =>
+              handleChange(name, value)
+            }
             handleSubmit={(e: FormEvent): void => handleSubmit(e)}
             submitting={loading}
             errors={errors}

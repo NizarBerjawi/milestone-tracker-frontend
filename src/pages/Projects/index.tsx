@@ -11,7 +11,7 @@ import { useAuth } from '../../context/AuthContext';
 import { UserInterface, ResponseWithoutMessage } from '../../common/types';
 
 const Dashboard: React.FC = (): React.ReactElement => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
   const classes = useStyles();
@@ -22,6 +22,8 @@ const Dashboard: React.FC = (): React.ReactElement => {
     if (user.email && user.profile) {
       return setLoading(false);
     }
+
+    setLoading(true);
 
     fetchUser()
       .then((res: ResponseWithoutMessage<UserInterface>) => {
@@ -43,14 +45,12 @@ const Dashboard: React.FC = (): React.ReactElement => {
   }
 
   return (
-    <Page hideSidebar={true}>
+    <Page hideSidebar={false}>
       <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color='inherit' />
       </Backdrop>
 
-      {!loading && (
-        <Typography variant='h1'>Dashboard</Typography>
-      )}
+      {!loading && <Typography variant='h1'>Projects</Typography>}
     </Page>
   );
 };

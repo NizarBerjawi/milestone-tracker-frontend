@@ -3,7 +3,7 @@ import Home from '../pages/Home';
 import Register from '../pages/Register';
 import Verify from '../pages/Verify';
 import { RouteInterface } from '../common/types';
-import Dashboard from '../pages/Dashboard';
+import Projects from '../pages/Projects';
 import Profile from '../pages/Profile';
 import ResendVerification from '../pages/ResendVerification';
 
@@ -39,9 +39,9 @@ const routes: Array<RouteInterface> = [
     auth: false,
   },
   {
-    path: '/dashboard',
+    path: '/projects',
     exact: true,
-    component: Dashboard,
+    component: Projects,
     auth: true,
   },
   {

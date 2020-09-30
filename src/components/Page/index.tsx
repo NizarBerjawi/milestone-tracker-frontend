@@ -64,11 +64,7 @@ const Page: React.FC<PageProps> = (
       />
 
       {!props.hideSidebar && (
-        <Sidebar
-          open={open}
-          onClose={handleDrawerClose}
-          width={sidebarWidth}
-        />
+        <Sidebar open={open} onClose={handleDrawerClose} width={sidebarWidth} />
       )}
 
       <main className={classes.content}>
